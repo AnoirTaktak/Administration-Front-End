@@ -1,0 +1,87 @@
+<mat-card class="cardWithShadow theme-card">
+  <mat-card-header>
+    <mat-card-title class="m-b-0">Les Paramétres de ma société</mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="b-t-1">
+    <form #societeForm="ngForm" novalidate>
+      <div class="row">
+       <!-- Raison Sociale -->
+       <div class="col-lg-6">
+        <mat-label class="f-w-600 m-b-8 d-block">Raison Sociale</mat-label>
+        <mat-form-field appearance="outline" class="w-100" color="primary">
+          <input matInput placeholder="Exemple : PermaLine" [(ngModel)]="societe.RaisonSociale_Societe" name="RaisonSociale_Societe" required #raisonSociale="ngModel" />
+          <mat-error *ngIf="societeForm.controls['RaisonSociale_Societe']?.invalid && societeForm.controls['RaisonSociale_Societe']?.touched">
+            Raison sociale est obligatoire.
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <!-- Matricule fiscale -->
+      <div class="col-lg-6">
+        <mat-label class="f-w-600 m-b-8 d-block">Matricule fiscale</mat-label>
+        <mat-form-field appearance="outline" class="w-100" color="primary">
+          <input type="text" matInput placeholder="Exemple : 1234567/M/M/M/000" [(ngModel)]="societe.MF_Societe" name="MF_Societe" required pattern="^[0-9]{7}[A-Za-z]{1}[A-Za-z]{1}[A-Za-z]{1}[0-9]{3}$" #matriculeFiscale="ngModel" />
+          <mat-error *ngIf="societeForm.controls['MF_Societe']?.invalid && societeForm.controls['MF_Societe']?.touched">
+            Matricule fiscale est obligatoire et doit être au format correct (ex. : 1234567MMM000).
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <!-- Email -->
+      <div class="col-lg-6">
+        <mat-label class="f-w-600 m-b-8 d-block">Email</mat-label>
+        <mat-form-field appearance="outline" class="w-100" color="primary">
+          <input type="email" matInput placeholder="Exemple : exemple@gmail.com" [(ngModel)]="societe.Email_Societe" name="Email_Societe" required email #email="ngModel" />
+          <mat-error *ngIf="societeForm.controls['Email_Societe']?.invalid && societeForm.controls['Email_Societe']?.touched">
+            Entrez un email valide.
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <!-- Téléphone -->
+      <div class="col-lg-6">
+        <mat-label class="f-w-600 m-b-8 d-block">Numéro de téléphone</mat-label>
+        <mat-form-field appearance="outline" class="w-100" color="primary">
+          <input type="tel" matInput placeholder="Exemple : +21612345678 ou 12345678" [(ngModel)]="societe.Tel_Societe" name="Tel_Societe" required pattern="^(\+216)?[0-9]{8}$" #telephone="ngModel" />
+          <mat-error *ngIf="societeForm.controls['Tel_Societe']?.invalid && societeForm.controls['Tel_Societe']?.touched">
+            Numéro de téléphone est obligatoire et doit être au format +21612345678 ou 12345678.
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <!-- Adresse -->
+      <div class="col-lg-6">
+        <mat-label class="f-w-600 m-b-8 d-block">Adresse</mat-label>
+        <mat-form-field appearance="outline" class="w-100" color="primary">
+          <input type="text" matInput placeholder="Exemple : Tunis, Sfax, Route Tunis km 10 ..." [(ngModel)]="societe.Adresse_Societe" name="Adresse_Societe" required #adresse="ngModel" />
+          <mat-error *ngIf="societeForm.controls['Adresse_Societe']?.invalid && societeForm.controls['Adresse_Societe']?.touched">
+            L'adresse est obligatoire.
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <!-- Code Postal -->
+      <div class="col-lg-6">
+        <mat-label class="f-w-600 m-b-8 d-block">Code Postal</mat-label>
+        <mat-form-field appearance="outline" class="w-100" color="primary">
+          <input type="number" matInput placeholder="Exemple : 1234" [(ngModel)]="societe.CodePostal" name="CodePostal" required pattern="^[0-9]{4}$" #codePostal="ngModel" />
+          <mat-error *ngIf="societeForm.controls['CodePostal']?.invalid && societeForm.controls['CodePostal']?.touched">
+            Code postal est obligatoire et doit être de 4 chiffres.
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <!-- Cachet & Signature -->
+      <div class="col-lg-6" *ngIf="societe">
+        <mat-label class="f-w-600 m-b-8 d-block">Cachet & Signature</mat-label>
+        <img [src]="'data:image/png;base64,' + societe.CachetSignature" alt="Cachet et Signature" class="image-cachet-signature" />
+        <input type="file" (change)="onFileSelected($event)" accept="image/*" />
+      </div>
+    </div>
+      <div class="m-t-12">
+        <button mat-flat-button color="primary" class="m-r-8" (click)="updateSociete1()" [disabled]="!societeForm.valid">Enregistrer</button>
+        <button mat-stroked-button color="warn" (click)="cancelChanges()">Annuler</button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>
