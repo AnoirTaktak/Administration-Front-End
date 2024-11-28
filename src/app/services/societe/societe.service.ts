@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, retry, throwError } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Societe } from 'src/Models/societe';
+import { environment } from 'src/environments/environment';
 
 
 
@@ -11,12 +12,13 @@ import { Societe } from 'src/Models/societe';
 })
 export class SocieteService {
 
+  private urlHote = environment.urlHote+'Societe/'; // URL de l'API définie dans le fichier environment
   constructor(private http :HttpClient)
   {
 
   }
 
-  urlHote = 'https://localhost:7155/api/Societe';
+
 
   getSocietes(): Observable<Societe> {
     return this.http.get<Societe[]>(this.urlHote).pipe(

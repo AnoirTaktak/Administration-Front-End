@@ -1,0 +1,164 @@
+<div class="container mt-4">
+  <h3 class="text-center">Modifier Employé</h3>
+  <form [formGroup]="editEmployeForm" (ngSubmit)="save()">
+    <div class="row">
+      <!-- Nom -->
+      <div class="col-md-6 mb-3">
+        <label for="Nom_Employe" class="form-label">Nom</label>
+        <input
+          type="text"
+          id="Nom_Employe"
+          class="form-control"
+          formControlName="Nom_Employe"
+          [ngClass]="{ 'is-invalid': editEmployeForm.get('Nom_Employe')?.invalid && editEmployeForm.get('Nom_Employe')?.touched }"
+        />
+        <div class="invalid-feedback">Le nom est requis.</div>
+      </div>
+
+      <!-- Poste -->
+      <div class="col-md-6 mb-3">
+        <label for="Poste_Employe" class="form-label">Poste</label>
+        <input
+          type="text"
+          id="Poste_Employe"
+          class="form-control"
+          formControlName="Poste_Employe"
+          [ngClass]="{ 'is-invalid': editEmployeForm.get('Poste_Employe')?.invalid && editEmployeForm.get('Poste_Employe')?.touched }"
+        />
+        <div class="invalid-feedback">Le poste est requis.</div>
+      </div>
+
+      <!-- CIN -->
+      <div class="col-md-6 mb-3">
+        <label for="CIN_Employe" class="form-label">CIN</label>
+        <input
+          type="text"
+          id="CIN_Employe"
+          class="form-control"
+          formControlName="CIN_Employe"
+          [ngClass]="{ 'is-invalid': editEmployeForm.get('CIN_Employe')?.invalid && editEmployeForm.get('CIN_Employe')?.touched }"
+        />
+        <div class="invalid-feedback" *ngIf="editEmployeForm.get('CIN_Employe')?.errors?.['required']">
+          Le CIN est requis.
+        </div>
+        <div class="invalid-feedback" *ngIf="editEmployeForm.get('CIN_Employe')?.errors?.['pattern']">
+          Le CIN doit contenir exactement 8 chiffres.
+        </div>
+        <div class="invalid-feedback" *ngIf="editEmployeForm.get('CIN_Employe')?.errors?.['cinNotUnique']">
+          Ce CIN est déjà utilisé.
+        </div>
+      </div>
+
+       <!-- CNSS -->
+       <div class="col-md-6 mb-3">
+        <label for="CNSS_Employe" class="form-label">CNSS</label>
+        <input
+          type="text"
+          id="CNSS_Employe"
+          class="form-control"
+          formControlName="CNSS_Employe"
+          [ngClass]="{ 'is-invalid': editEmployeForm.get('CNSS_Employe')?.invalid && editEmployeForm.get('CNSS_Employe')?.touched }"
+        />
+        <div class="invalid-feedback" *ngIf="editEmployeForm.get('CNSS_Employe')?.errors?.['required']">
+          Le numéro CNSS est requis.
+        </div>
+        <div class="invalid-feedback" *ngIf="editEmployeForm.get('CNSS_Employe')?.errors?.['pattern']">
+          Le CNSS doit contenir uniquement des chiffres.
+        </div>
+        <div class="invalid-feedback" *ngIf="editEmployeForm.get('CNSS_Employe')?.errors?.['cnssNotUnique']">
+          Ce numéro CNSS est déjà utilisé.
+        </div>
+      </div>
+
+      <!-- Téléphone -->
+      <div class="col-md-6 mb-3">
+        <label for="Tel_Employe" class="form-label">Téléphone</label>
+        <input
+          type="text"
+          id="Tel_Employe"
+          class="form-control"
+          formControlName="Tel_Employe"
+          [ngClass]="{ 'is-invalid': editEmployeForm.get('Tel_Employe')?.invalid && editEmployeForm.get('Tel_Employe')?.touched }"
+        />
+        <div class="invalid-feedback">Le téléphone est requis.</div>
+      </div>
+
+      <!-- Salaire -->
+      <div class="col-md-6 mb-3">
+        <label for="Salaire" class="form-label">Salaire</label>
+        <input
+          type="number"
+          id="Salaire"
+          class="form-control"
+          formControlName="Salaire"
+          [ngClass]="{ 'is-invalid': editEmployeForm.get('Salaire')?.invalid && editEmployeForm.get('Salaire')?.touched }"
+        />
+        <div class="invalid-feedback">Le salaire est requis.</div>
+      </div>
+
+      <!-- Type de contrat -->
+      <div class="col-md-6 mb-3">
+        <label for="TypeContrat" class="form-label">Type de Contrat</label>
+        <select
+          id="TypeContrat"
+          class="form-select"
+          formControlName="TypeContrat"
+          [ngClass]="{ 'is-invalid': editEmployeForm.get('TypeContrat')?.invalid && editEmployeForm.get('TypeContrat')?.touched }"
+        >
+          <option value="" disabled>Choisissez un type de contrat</option>
+          <option value="0">CDD</option>
+          <option value="1">CDI</option>
+          <option value="2">Stage</option>
+        </select>
+        <div class="invalid-feedback">Le type de contrat est requis.</div>
+      </div>
+
+      <!-- Email -->
+      <div class="col-md-6 mb-3">
+        <label for="Email_Employe" class="form-label">Email</label>
+        <input
+          type="email"
+          id="Email_Employe"
+          class="form-control"
+          formControlName="Email_Employe"
+          [ngClass]="{ 'is-invalid': editEmployeForm.get('Email_Employe')?.invalid && editEmployeForm.get('Email_Employe')?.touched }"
+        />
+        <div class="invalid-feedback">Veuillez entrer une adresse email valide.</div>
+      </div>
+
+      <!-- Date de début -->
+      <div class="col-md-6 mb-3">
+        <label for="DateDebut" class="form-label">Date de Début</label>
+        <input
+          type="date"
+          id="DateDebut"
+          class="form-control"
+          formControlName="DateDebut"
+          [ngClass]="{ 'is-invalid': editEmployeForm.get('DateDebut')?.invalid && editEmployeForm.get('DateDebut')?.touched }"
+        />
+        <div class="invalid-feedback">La date de début est requise.</div>
+      </div>
+
+      <!-- Date de fin -->
+      <div class="col-md-6 mb-3">
+        <label for="DateFin" class="form-label">Date de Fin</label>
+        <input
+          type="date"
+          id="DateFin"
+          class="form-control"
+          formControlName="DateFin"
+        />
+      </div>
+
+      <!-- Boutons -->
+      <div class="d-flex justify-content-end mt-4">
+        <button type="submit" class="btn btn-primary me-2" [disabled]="editEmployeForm.invalid">
+          Enregistrer
+        </button>
+        <button type="button" class="btn btn-secondary" (click)="close()">
+          Annuler
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

@@ -9,6 +9,7 @@ import { AppTooltipsComponent } from './tooltips/tooltips.component';
 import { AppFormsComponent } from './forms/forms.component';
 import { AppTablesComponent } from './tables/tables.component';
 import { SocieteComponent } from './societe/societe.component';
+import { EmployeComponent } from './employe/employe.component';
 
 export const UiComponentsRoutes: Routes = [
   {
@@ -45,7 +46,11 @@ export const UiComponentsRoutes: Routes = [
       {
         path: 'Societe',
         component: SocieteComponent,
-      }
+      },
+      {
+        path: 'Employe',
+        component: EmployeComponent,
+      },
     ],
   },
 ];

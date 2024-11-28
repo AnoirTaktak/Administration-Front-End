@@ -10,6 +10,21 @@ export const navItems: NavItem[] = [
     route: '/dashboard',
   },
   {
+    displayName: 'Paramétres Societe',
+    iconName: 'icon-park:setting',
+    route: '/ui-components/Societe',
+  },
+  {
+    displayName: 'Notre Employes',
+    iconName: 'icon-park:people',
+    route: '/ui-components/Employe',
+  },
+  {
+    displayName: 'Icons',
+    iconName: 'solar:sticker-smile-circle-2-line-duotone',
+    route: '/extra/icons',
+  }
+  /*{
     navCap: 'Ui Components',
     divider: true
   },
@@ -80,5 +95,5 @@ export const navItems: NavItem[] = [
     displayName: 'Sample Page',
     iconName: 'solar:planet-3-line-duotone',
     route: '/extra/sample-page',
-  },
+  },*/
 ];

@@ -1,0 +1,178 @@
+<mat-card class="cardWithShadow">
+  <mat-card-content>
+    <mat-card-title>Liste des Employés</mat-card-title>
+
+    <div class="table-responsive">
+      <button mat-menu-item (click)="openAddDialog()">
+        <!-- Utilisation de l'icône SVG -->
+        <span class="custom-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 48 48">
+            <g fill="none" stroke-linejoin="round" stroke-width="4">
+              <rect width="36" height="36" x="6" y="6" fill="#2f88ff" stroke="#000" rx="3"/>
+              <path stroke="#fff" stroke-linecap="round" d="M24 16V32"/>
+              <path stroke="#fff" stroke-linecap="round" d="M16 24L32 24"/>
+            </g>
+          </svg>
+        </span>
+        <!-- Texte du bouton -->
+        <span>Ajouter</span>
+      </button>
+    <div class="filters">
+      <mat-form-field appearance="outline">
+        <mat-label>Rechercher par nom</mat-label>
+        <input matInput  placeholder="Nom" [(ngModel)]="searchName" (input)="applyFilters()">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Rechercher par CIN</mat-label>
+        <input matInput  placeholder="CIN" [(ngModel)]="searchCin" (input)="applyFilters()">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Type de contrat</mat-label>
+        <mat-select [(ngModel)]="searchTC" (selectionChange)="applyFilters()">
+          <mat-option value="">Tous</mat-option>
+          <mat-option value="0">CDD</mat-option>
+          <mat-option value="1">CDI</mat-option>
+          <mat-option value="2">Stage</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+      <table mat-table [dataSource]="employes" class="mat-elevation-z8" >
+        <!-- Image et Nom -->
+        <ng-container matColumnDef="assigned">
+          <th mat-header-cell *matHeaderCellDef class="f-w-600 mat-subtitle-1 f-s-14 p-l-0">
+            Employé
+          </th>
+          <td mat-cell *matCellDef="let element" class="p-l-0">
+            <div class="d-flex align-items-center">
+              <img [src]="element.photo || 'assets/images/profile/user-1.jpg'" alt="employé" width="60" class="rounded" />
+              <div class="m-l-16">
+                <h6 class="mat-subtitle-1 f-s-14 f-w-600">
+                  {{ element.Nom_Employe }}
+                </h6>
+                <span class="f-s-12 text-muted">{{ element.Poste_Employe }}</span>
+              </div>
+            </div>
+          </td>
+        </ng-container>
+
+        <!-- Cin -->
+        <ng-container matColumnDef="cin">
+          <th mat-header-cell *matHeaderCellDef class="f-w-600 mat-subtitle-1 f-s-14">
+            CIN
+          </th>
+          <td mat-cell *matCellDef="let element" class="mat-body-1">
+            <span class="text-dark f-w-600">{{ element.CIN_Employe }}</span>
+          </td>
+        </ng-container>
+
+        <!-- Tel -->
+        <ng-container matColumnDef="tel">
+          <th mat-header-cell *matHeaderCellDef class="f-w-600 mat-subtitle-1 f-s-14">
+            Telephone
+          </th>
+          <td mat-cell *matCellDef="let element" class="mat-body-1">
+            <span class="text-dark f-w-600">{{ element.Tel_Employe }}</span>
+          </td>
+        </ng-container>
+
+        <!-- CNSS -->
+        <ng-container matColumnDef="cnss">
+          <th mat-header-cell *matHeaderCellDef class="f-w-600 mat-subtitle-1 f-s-14">
+            CNSS
+          </th>
+          <td mat-cell *matCellDef="let element" class="mat-body-1">
+            <span class="text-dark f-w-600">{{ element.CNSS_Employe }}</span>
+          </td>
+        </ng-container>
+
+        <!-- Salaire -->
+        <ng-container matColumnDef="salaire">
+          <th mat-header-cell *matHeaderCellDef class="f-w-600 mat-subtitle-1 f-s-14">
+            Salaire
+          </th>
+          <td mat-cell *matCellDef="let element" class="mat-body-1">
+            <span class="text-dark f-w-600">{{ element.Salaire }} TND</span>
+          </td>
+        </ng-container>
+
+        <!-- Type de Contrat -->
+        <ng-container matColumnDef="contrat">
+          <th mat-header-cell *matHeaderCellDef class="f-w-600 mat-subtitle-1 f-s-14">
+            Type de Contrat
+          </th>
+          <td mat-cell *matCellDef="let element" class="mat-body-1">
+            <span [ngClass]="{
+              'text-success': element.TypeContrat === 'CDI',
+              'text-primary': element.TypeContrat === 'CDD',
+              'text-warning': element.TypeContrat === 'Stage'
+            }">
+              {{ getTypeContratText(element.TypeContrat) }}
+            </span>
+          </td>
+        </ng-container>
+
+        <!-- Date Debut -->
+        <ng-container matColumnDef="date debut">
+          <th mat-header-cell *matHeaderCellDef class="f-w-600 mat-subtitle-1 f-s-14">
+            Date Debut
+          </th>
+          <td mat-cell *matCellDef="let element" class="mat-body-1">
+            <span class="text-dark f-w-600">{{ element.DateDebut | date: 'dd/MM/yyyy' }}</span>
+          </td>
+        </ng-container>
+
+        <!-- Date Fin -->
+        <ng-container matColumnDef="date fin">
+          <th mat-header-cell *matHeaderCellDef class="f-w-600 mat-subtitle-1 f-s-14">
+            Date Fin
+          </th>
+          <td mat-cell *matCellDef="let element" class="mat-body-1">
+            <span class="text-dark f-w-600">{{ element.DateFin | date: 'dd/MM/yyyy' }}</span>
+          </td>
+        </ng-container>
+
+        <!-- Email -->
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef class="f-w-600 mat-subtitle-1 f-s-14">
+            Email
+          </th>
+          <td mat-cell *matCellDef="let element" class="mat-body-1">
+            <span class="text-dark f-w-600">{{ element.Email_Employe }}</span>
+          </td>
+        </ng-container>
+
+
+
+        <!-- Actions -->
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef class="f-w-600 mat-subtitle-1 f-s-14">
+            Actions
+          </th>
+          <td mat-cell *matCellDef="let element" class="mat-body-1">
+            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Actions">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item (click)="openEditDialog(element)">
+                <mat-icon>edit</mat-icon>
+                <span>Modifier</span>
+              </button>
+
+              <button mat-menu-item (click)="deleteEmploye(element.ID_Employe)">
+                <mat-icon>delete</mat-icon>
+                <span>Supprimer</span>
+              </button>
+            </mat-menu>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </div>
+  </mat-card-content>
+
+
