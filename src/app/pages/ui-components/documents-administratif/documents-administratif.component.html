@@ -1,0 +1,86 @@
+<mat-accordion class="mat-accordion">
+  <mat-expansion-panel class="mat-expansion-panel cardWithShadow ng-tns-c857250080-387 ng-star-inserted" [expanded]="step() === 0" (opened)="setStep(0)" hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title> Choisir le type de document </mat-panel-title>
+    </mat-expansion-panel-header>
+    <mat-card class="mat-mdc-card mdc-card cardWithShadow theme-card">
+      <mat-card-header>
+        <mat-card-title class="m-b-0">Choissisez vous la document que vous souhaitez de générer </mat-card-title>
+      </mat-card-header>
+    <mat-card-content class="mat-mdc-card-content b-t-1">
+      <div class="row">
+        <div class="col-md-6" *ngFor="let docType of documentTypes">
+          <div class="card">
+            <div class="card-body text-center">
+              <h5 class="card-title">{{ docType.NomType }}</h5>
+              <button class="btn btn-primary" (click)="selectDocument(docType)" (click)="nextStep()">
+                Select
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+    </mat-card>
+    <mat-action-row>
+      <button mat-button (click)="nextStep()" [disabled]="!selectedDocumentType">Suivant</button>
+    </mat-action-row>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel [expanded]="step() === 1" (opened)="setStep(1)" hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title> Choisir l'employé </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <div>
+      <mat-form-field appearance="outline">
+        <mat-label>Choisissez un employé</mat-label>
+        <mat-select [(value)]="selectedEmploye">
+          <mat-option *ngFor="let employe of employes" [value]="employe">
+            {{ employe.Nom_Employe }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <mat-action-row>
+      <button mat-button (click)="prevStep()">Précédent</button>
+      <button mat-button (click)="nextStep()" [disabled]="!selectedEmploye">Suivant</button>
+    </mat-action-row>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel [expanded]="step() === 2" (opened)="setStep(2)" (opened)="generatePDFContenu()" hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title> Vérifier et imprimer </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <div>
+      <h4>Aperçu du document PDF</h4>
+
+
+     <!-- Affichage du PDF dans un iframe -->
+  <div *ngIf="safeUrl">
+    <iframe [src]="safeUrl" style="width: 100%; height: 600px;" frameborder="0"></iframe>
+  </div>
+      <!-- Message d'erreur -->
+      <!-- Message de chargement ou d'erreur -->
+  <div *ngIf="!pdfUrl && addedData?.FileContents">
+    <p>Chargement du PDF...</p>
+  </div>
+  <div *ngIf="!addedData?.FileContents">
+    <p>Aucun PDF à afficher.</p>
+  </div>
+    </div>
+
+    <mat-action-row>
+      <button mat-button (click)="showPdf()">Afficher le PDF</button>
+      <button mat-button (click)="openPdfInNewTab()" [disabled]="!pdfUrl">Ouvrir dans un nouvel onglet</button>
+      <button mat-button (click)="downloadPDF()" [disabled]="!addedData?.FileContents">Télécharger</button>
+      <button mat-button (click)="printPDF()" [disabled]="!pdfUrl">Imprimer</button>
+    </mat-action-row>
+  </mat-expansion-panel>
+
+</mat-accordion>
+
+
+

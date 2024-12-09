@@ -10,6 +10,8 @@ import { AppFormsComponent } from './forms/forms.component';
 import { AppTablesComponent } from './tables/tables.component';
 import { SocieteComponent } from './societe/societe.component';
 import { EmployeComponent } from './employe/employe.component';
+import { DocumentsAdministratifComponent } from './documents-administratif/documents-administratif.component';
+
 
 export const UiComponentsRoutes: Routes = [
   {
@@ -50,6 +52,10 @@ export const UiComponentsRoutes: Routes = [
       {
         path: 'Employe',
         component: EmployeComponent,
+      },
+      {
+        path: 'Documents',
+        component: DocumentsAdministratifComponent,
       },
     ],
   },

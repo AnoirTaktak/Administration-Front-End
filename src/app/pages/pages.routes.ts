@@ -10,6 +10,7 @@ export const PagesRoutes: Routes = [
       urls: [
         { title: 'Dashboard', url: '/dashboard' },
         { title: 'Starter' },
+        
       ],
     },
   },

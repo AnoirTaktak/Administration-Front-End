@@ -20,10 +20,16 @@ export const navItems: NavItem[] = [
     route: '/ui-components/Employe',
   },
   {
+    displayName: 'Générer Documents',
+    iconName: 'icon-park:doc-add',
+    route: '/ui-components/Documents',
+  },
+  {
     displayName: 'Icons',
     iconName: 'solar:sticker-smile-circle-2-line-duotone',
     route: '/extra/icons',
-  }
+  },
+
   /*{
     navCap: 'Ui Components',
     divider: true

@@ -75,7 +75,7 @@
       <div class="col-lg-6" *ngIf="societe">
         <mat-label class="f-w-600 m-b-8 d-block">Cachet & Signature</mat-label>
         <img [src]="'data:image/png;base64,' + societe.CachetSignature" alt="Cachet et Signature" class="image-cachet-signature" />
-        <input type="file" (change)="onFileSelected($event)" accept="image/*" />
+        <input class="form-control form-control-lg" type="file" (change)="onFileSelected($event)" accept="image/*" />
       </div>
     </div>
       <div class="m-t-12">
