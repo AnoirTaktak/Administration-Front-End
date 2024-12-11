@@ -1,1 +1,130 @@
-<p>fournisseur works!</p>
+<mat-card class="cardWithShadow">
+  <mat-card-content>
+    <mat-card-title>Liste des Fournisseurs</mat-card-title>
+
+    <div class="table-responsive">
+      <button mat-menu-item (click)="openAddDialog()">
+        <!-- Utilisation de l'icône SVG -->
+        <span class="custom-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 48 48">
+            <g fill="none" stroke-linejoin="round" stroke-width="4">
+              <rect width="36" height="36" x="6" y="6" fill="#2f88ff" stroke="#000" rx="3"/>
+              <path stroke="#fff" stroke-linecap="round" d="M24 16V32"/>
+              <path stroke="#fff" stroke-linecap="round" d="M16 24L32 24"/>
+            </g>
+          </svg>
+        </span>
+        <!-- Texte du bouton -->
+        <span>Ajouter</span>
+      </button>
+    <div class="filters">
+      <mat-form-field appearance="outline">
+        <mat-label>Rechercher par matricule fiscale</mat-label>
+        <input matInput  placeholder="Matricule Fiscale" [(ngModel)]="searchMF" (input)="applyFilters()">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Rechercher par raison sociale</mat-label>
+        <input matInput  placeholder="Raison Sociale" [(ngModel)]="searchRS" (input)="applyFilters()">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Recherche Par Type de Fournisseur</mat-label>
+        <input matInput  placeholder="Type/Proffesion" [(ngModel)]="searchTC" (input)="applyFilters()">
+      </mat-form-field>
+    </div>
+
+      <table mat-table [dataSource]="Fournisseurs" class="mat-elevation-z8" >
+
+
+        <!-- Raison Sociale -->
+        <ng-container matColumnDef="rs">
+          <th mat-header-cell *matHeaderCellDef class="f-w-600 mat-subtitle-1 f-s-14">
+            Raison Sociale
+          </th>
+          <td mat-cell *matCellDef="let element" class="mat-body-1">
+            <span class="text-dark f-w-600">{{ element.RaisonSociale_Fournisseur }}</span>
+          </td>
+        </ng-container>
+
+        <!-- Matricule Fiscale -->
+        <ng-container matColumnDef="mf">
+          <th mat-header-cell *matHeaderCellDef class="f-w-600 mat-subtitle-1 f-s-14">
+            Matricule Fiscale
+          </th>
+          <td mat-cell *matCellDef="let element" class="mat-body-1">
+            <span class="text-dark f-w-600">{{ element.MF_Fournisseur }}</span>
+          </td>
+        </ng-container>
+
+        <!-- Adresse -->
+        <ng-container matColumnDef="adresse">
+          <th mat-header-cell *matHeaderCellDef class="f-w-600 mat-subtitle-1 f-s-14">
+            Adresse
+          </th>
+          <td mat-cell *matCellDef="let element" class="mat-body-1">
+            <span class="text-dark f-w-600">{{ element.Adresse_Fournisseur }}</span>
+          </td>
+        </ng-container>
+
+        <!-- Tel -->
+        <ng-container matColumnDef="tel">
+          <th mat-header-cell *matHeaderCellDef class="f-w-600 mat-subtitle-1 f-s-14">
+            Telephone
+          </th>
+          <td mat-cell *matCellDef="let element" class="mat-body-1">
+            <span class="text-dark f-w-600">{{ element.Tel_Fournisseur }}</span>
+          </td>
+        </ng-container>
+
+        <!-- Email -->
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef class="f-w-600 mat-subtitle-1 f-s-14">
+            Email
+          </th>
+          <td mat-cell *matCellDef="let element" class="mat-body-1">
+            <span class="text-dark f-w-600">{{ element.Email_Fournisseur }}</span>
+          </td>
+        </ng-container>
+
+        <!-- Type de Fournisseur -->
+        <ng-container matColumnDef="type">
+          <th mat-header-cell *matHeaderCellDef class="f-w-600 mat-subtitle-1 f-s-14">
+            Type de Fournisseur
+          </th>
+          <td mat-cell *matCellDef="let element" class="mat-body-1">
+            <span class="text-dark f-w-600">{{ element.Type_Fournisseur }}</span>
+          </td>
+        </ng-container>
+
+
+        <!-- Actions -->
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef class="f-w-600 mat-subtitle-1 f-s-14">
+            Actions
+          </th>
+          <td mat-cell *matCellDef="let element" class="mat-body-1">
+            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Actions">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item (click)="openEditDialog(element)">
+                <mat-icon>edit</mat-icon>
+                <span>Modifier</span>
+              </button>
+
+              <button mat-menu-item (click)="deleteFournisseur(element.ID_Fournisseur)">
+                <mat-icon>delete</mat-icon>
+                <span>Supprimer</span>
+              </button>
+            </mat-menu>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </div>
+  </mat-card-content>
+
+

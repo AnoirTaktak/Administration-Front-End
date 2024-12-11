@@ -1,0 +1,108 @@
+<div class="container mt-4">
+  <h3 class="text-center">Modifier Client</h3>
+  <form [formGroup]="editClientForm" (ngSubmit)="save()">
+    <div class="row">
+      <!-- RS -->
+      <div class="col-md-6 mb-3">
+        <label for="RS_Client" class="form-label">Raison Sociale</label>
+        <input
+          type="text"
+          id="RS_Client"
+          class="form-control"
+          formControlName="RS_Client"
+          [ngClass]="{ 'is-invalid': editClientForm.get('RS_Client')?.invalid && editClientForm.get('RS_Client')?.touched }"
+        />
+        <div class="invalid-feedback">Le RS est requis.</div>
+      </div>
+
+      <!-- MF -->
+      <div class="col-md-6 mb-3">
+        <label for="MF_Client" class="form-label">Matricule Fiscale</label>
+        <input
+          type="text"
+          id="MF_Client"
+          class="form-control"
+          formControlName="MF_Client"
+          [ngClass]="{ 'is-invalid': editClientForm.get('MF_Client')?.invalid && editClientForm.get('MF_Client')?.touched }"
+        />
+        <div class="invalid-feedback" *ngIf="editClientForm.get('MF_Client')?.errors?.['required']">
+          Le MF est requis.
+        </div>
+        <div class="invalid-feedback" *ngIf="editClientForm.get('MF_Client')?.errors?.['pattern']">
+          Le matricule fiscal est requis et verifié le format : 1234567EXP000.
+        </div>
+        <div class="invalid-feedback" *ngIf="editClientForm.get('MF_Client')?.errors?.['MFNotUnique']">
+          Ce MF est déjà utilisé.
+        </div>
+      </div>
+
+       <!-- Adresse -->
+       <div class="col-md-6 mb-3">
+        <label for="Adresse_Client" class="form-label">Adresse</label>
+        <input
+          type="text"
+          id="Adresse_Client"
+          class="form-control"
+          formControlName="Adresse_Client"
+          [ngClass]="{ 'is-invalid': editClientForm.get('Adresse_Client')?.invalid && editClientForm.get('Adresse_Client')?.touched }"
+        />
+        <div class="invalid-feedback" *ngIf="editClientForm.get('Adresse_Client')?.errors?.['required']">
+          L'adresse est requis.
+        </div>
+      </div>
+
+      <!-- Téléphone -->
+      <div class="col-md-6 mb-3">
+        <label for="Tel_Client" class="form-label">Téléphone</label>
+        <input
+          type="text"
+          id="Tel_Client"
+          class="form-control"
+          formControlName="Tel_Client"
+          [ngClass]="{ 'is-invalid': editClientForm.get('Tel_Client')?.invalid && editClientForm.get('Tel_Client')?.touched }"
+        />
+        <div class="invalid-feedback">Le téléphone est requis.</div>
+      </div>
+
+      <!-- Email -->
+      <div class="col-md-6 mb-3">
+        <label for="Email_Client" class="form-label">Email</label>
+        <input
+          type="email"
+          id="Email_Client"
+          class="form-control"
+          formControlName="Email_Client"
+          [ngClass]="{ 'is-invalid': editClientForm.get('Email_Client')?.invalid && editClientForm.get('Email_Client')?.touched }"
+        />
+        <div class="invalid-feedback">Le Email est requis.</div>
+      </div>
+
+      <!-- Type de client -->
+      <div class="col-md-6 mb-3">
+        <label for="Type_Client" class="form-label">Type de Contrat</label>
+        <select
+          id="Type_Client"
+          class="form-select"
+          formControlName="Type_Client"
+          [ngClass]="{ 'is-invalid': editClientForm.get('Type_Client')?.invalid && editClientForm.get('Type_Client')?.touched }"
+        >
+          <option value="" disabled>Choisissez un type de client</option>
+          <option value="0">Personne Physique</option>
+          <option value="1">Société</option>
+        </select>
+        <div class="invalid-feedback">Le type de client est requis.</div>
+      </div>
+
+
+      <!-- Boutons -->
+      <div class="d-flex justify-content-end mt-4">
+        <button type="submit" class="btn btn-primary me-2" [disabled]="editClientForm.invalid">
+          Enregistrer
+        </button>
+        <button type="button" class="btn btn-secondary" (click)="close()">
+          Annuler
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

@@ -25,6 +25,21 @@ export const navItems: NavItem[] = [
     route: '/ui-components/Documents',
   },
   {
+    displayName: 'Clients',
+    iconName: 'icon-park:handle-c',
+    route: '/ui-components/Clients',
+  },
+  {
+    displayName: 'Fournisseurs',
+    iconName: 'icon-park:foursquare',
+    route: '/ui-components/Fournisseurs',
+  },
+  {
+    displayName: 'Services',
+    iconName: 'icon-park:health-products',
+    route: '/ui-components/Services',
+  },
+  {
     displayName: 'Icons',
     iconName: 'solar:sticker-smile-circle-2-line-duotone',
     route: '/extra/icons',

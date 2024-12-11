@@ -1,0 +1,105 @@
+<div class="container mt-4">
+  <h3 class="text-center">Modifier Fournisseur</h3>
+  <form [formGroup]="editFournisseurForm" (ngSubmit)="save()">
+    <div class="row">
+      <!-- RS -->
+      <div class="col-md-6 mb-3">
+        <label for="RaisonSociale_Fournisseur" class="form-label">Raison Sociale</label>
+        <input
+          type="text"
+          id="RaisonSociale_Fournisseur"
+          class="form-control"
+          formControlName="RaisonSociale_Fournisseur"
+          [ngClass]="{ 'is-invalid': editFournisseurForm.get('RaisonSociale_Fournisseur')?.invalid && editFournisseurForm.get('RaisonSociale_Fournisseur')?.touched }"
+        />
+        <div class="invalid-feedback">Le RS est requis.</div>
+      </div>
+
+      <!-- MF -->
+      <div class="col-md-6 mb-3">
+        <label for="MF_Fournisseur" class="form-label">Matricule Fiscale</label>
+        <input
+          type="text"
+          id="MF_Fournisseur"
+          class="form-control"
+          formControlName="MF_Fournisseur"
+          [ngClass]="{ 'is-invalid': editFournisseurForm.get('MF_Fournisseur')?.invalid && editFournisseurForm.get('MF_Fournisseur')?.touched }"
+        />
+        <div class="invalid-feedback" *ngIf="editFournisseurForm.get('MF_Fournisseur')?.errors?.['required']">
+          Le MF est requis.
+        </div>
+        <div class="invalid-feedback" *ngIf="editFournisseurForm.get('MF_Fournisseur')?.errors?.['pattern']">
+          Le matricule fiscal est requis et verifié le format : 1234567EXP000.
+        </div>
+        <div class="invalid-feedback" *ngIf="editFournisseurForm.get('MF_Fournisseur')?.errors?.['MFNotUnique']">
+          Ce MF est déjà utilisé.
+        </div>
+      </div>
+
+       <!-- Adresse -->
+       <div class="col-md-6 mb-3">
+        <label for="Adresse_Fournisseur" class="form-label">Adresse</label>
+        <input
+          type="text"
+          id="Adresse_Fournisseur"
+          class="form-control"
+          formControlName="Adresse_Fournisseur"
+          [ngClass]="{ 'is-invalid': editFournisseurForm.get('Adresse_Fournisseur')?.invalid && editFournisseurForm.get('Adresse_Fournisseur')?.touched }"
+        />
+        <div class="invalid-feedback" *ngIf="editFournisseurForm.get('Adresse_Fournisseur')?.errors?.['required']">
+          L'adresse est requis.
+        </div>
+      </div>
+
+      <!-- Téléphone -->
+      <div class="col-md-6 mb-3">
+        <label for="Tel_Fournisseur" class="form-label">Téléphone</label>
+        <input
+          type="text"
+          id="Tel_Fournisseur"
+          class="form-control"
+          formControlName="Tel_Fournisseur"
+          [ngClass]="{ 'is-invalid': editFournisseurForm.get('Tel_Fournisseur')?.invalid && editFournisseurForm.get('Tel_Fournisseur')?.touched }"
+        />
+        <div class="invalid-feedback">Le téléphone est requis.</div>
+      </div>
+
+      <!-- Email -->
+      <div class="col-md-6 mb-3">
+        <label for="Email_Fournisseur" class="form-label">Email</label>
+        <input
+          type="email"
+          id="Email_Fournisseur"
+          class="form-control"
+          formControlName="Email_Fournisseur"
+          [ngClass]="{ 'is-invalid': editFournisseurForm.get('Email_Fournisseur')?.invalid && editFournisseurForm.get('Email_Fournisseur')?.touched }"
+        />
+        <div class="invalid-feedback">Le Email est requis.</div>
+      </div>
+
+      <!-- Type de Fournisseur -->
+      <div class="col-md-6 mb-3">
+        <label for="Type_Fournisseur" class="form-label">Type de Contrat</label>
+        <input
+        type="text"
+        id="Type_Fournisseur"
+        class="form-control"
+        formControlName="Type_Fournisseur"
+        [ngClass]="{ 'is-invalid': editFournisseurForm.get('Type_Fournisseur')?.invalid && editFournisseurForm.get('Type_Fournisseur')?.touched }"
+      />
+        <div class="invalid-feedback">Le type de Fournisseur est requis.</div>
+      </div>
+
+
+      <!-- Boutons -->
+      <div class="d-flex justify-content-end mt-4">
+        <button type="submit" class="btn btn-primary me-2" [disabled]="editFournisseurForm.invalid">
+          Enregistrer
+        </button>
+        <button type="button" class="btn btn-secondary" (click)="close()">
+          Annuler
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

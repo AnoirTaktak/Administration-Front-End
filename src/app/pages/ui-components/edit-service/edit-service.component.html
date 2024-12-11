@@ -1,0 +1,87 @@
+<div class="container mt-4">
+  <h3 class="text-center">Modifier Service</h3>
+  <form [formGroup]="editServiceForm" (ngSubmit)="save()">
+    <div class="row">
+
+      <!-- Designation -->
+      <div class="col-md-6 mb-3">
+        <label for="Designation_Service" class="form-label">Designation De Service</label>
+        <input
+          type="text"
+          id="Designation_Service"
+          class="form-control"
+          formControlName="Designation_Service"
+          [ngClass]="{ 'is-invalid': editServiceForm.get('Designation_Service')?.invalid && editServiceForm.get('Designation_Service')?.touched }"
+        />
+        <div class="invalid-feedback" *ngIf="editServiceForm.get('Designation_Service')?.errors?.['required']">
+          Le Designation est requis.
+        </div>
+        <div class="invalid-feedback" *ngIf="editServiceForm.get('Designation_Service')?.errors?.['DesNotUnique']">
+          Ce Designation est déjà utilisé.
+        </div>
+      </div>
+
+       <!-- Prix HT -->
+<div class="col-md-6 mb-3">
+  <label for="PrixHT" class="form-label">Prix H.T</label>
+  <input
+    type="number"
+    id="PrixHT"
+    class="form-control"
+    formControlName="PrixHT"
+    [ngClass]="{ 'is-invalid': editServiceForm.get('PrixHT')?.invalid && editServiceForm.get('PrixHT')?.touched }"
+    [disabled]="true" 
+  />
+  <div class="invalid-feedback" *ngIf="editServiceForm.get('PrixHT')?.errors?.['required']">
+    Le Prix H.T est requis.
+  </div>
+</div>
+
+<!-- TVA -->
+<div class="col-md-6 mb-3">
+  <label for="TVA" class="form-label">T.V.A</label>
+  <input
+    type="number"
+    id="TVA"
+    class="form-control"
+    formControlName="TVA"
+    [ngClass]="{ 'is-invalid': editServiceForm.get('TVA')?.invalid && editServiceForm.get('TVA')?.touched }"
+    (input)="updatePrixHT()"
+  />
+  <div class="invalid-feedback" *ngIf="editServiceForm.get('TVA')?.errors?.['required']">
+    La TVA est requise.
+  </div>
+  <mat-error *ngIf="editServiceForm.get('TVA')?.hasError('tvaOutOfRange')">
+    <div class="invalid-feedback">La TVA doit être comprise entre 7 et 20.</div>
+  </mat-error>
+</div>
+
+<!-- Prix TTC -->
+<div class="col-md-6 mb-3">
+  <label for="PrixTTC" class="form-label">Prix T.T.C</label>
+  <input
+    type="number"
+    id="PrixTTC"
+    class="form-control"
+    formControlName="PrixTTC"
+    [ngClass]="{ 'is-invalid': editServiceForm.get('PrixTTC')?.invalid && editServiceForm.get('PrixTTC')?.touched }"
+    (input)="updatePrixHT()"
+  />
+  <div class="invalid-feedback" *ngIf="editServiceForm.get('PrixTTC')?.errors?.['required']">
+    Le Prix T.T.C est requis.
+  </div>
+</div>
+
+
+      <!-- Boutons -->
+      <div class="d-flex justify-content-end mt-4">
+        <button type="submit" class="btn btn-primary me-2" [disabled]="editServiceForm.invalid">
+          Enregistrer
+        </button>
+        <button type="button" class="btn btn-secondary" (click)="close()">
+          Annuler
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

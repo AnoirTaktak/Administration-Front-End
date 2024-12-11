@@ -1,0 +1,84 @@
+<div class="container mt-4">
+  <h3 class="text-center">Ajouté Service</h3>
+  <form [formGroup]="addServiceForm" (ngSubmit)="save()">
+    <div class="row">
+
+      <!-- Designation -->
+      <div class="col-md-6 mb-3">
+        <label for="Designation_Service" class="form-label">Designation De Service</label>
+        <input
+          type="text"
+          id="Designation_Service"
+          class="form-control"
+          formControlName="Designation_Service"
+          [ngClass]="{ 'is-invalid': addServiceForm.get('Designation_Service')?.invalid && addServiceForm.get('Designation_Service')?.touched }"
+        />
+        <div class="invalid-feedback" *ngIf="addServiceForm.get('Designation_Service')?.errors?.['required']">
+          Le Designation est requis.
+        </div>
+        <div class="invalid-feedback" *ngIf="addServiceForm.get('Designation_Service')?.errors?.['DesNotUnique']">
+          Ce Designation est déjà utilisé.
+        </div>
+      </div>
+
+       <!-- Prix H.T -->
+<div class="col-md-6 mb-3">
+  <label for="PrixHT" class="form-label">Prix H.T</label>
+  <input
+    type="number"
+    id="PrixHT"
+    class="form-control"
+    formControlName="PrixHT"
+    [ngClass]="{ 'is-invalid': addServiceForm.get('PrixHT')?.invalid && addServiceForm.get('PrixHT')?.touched }"
+    [disabled]="true"
+  />
+  <div class="invalid-feedback" *ngIf="addServiceForm.get('PrixHT')?.errors?.['required']">
+    Le Prix H.T est requis.
+  </div>
+</div>
+
+<!-- T.V.A -->
+<div class="col-md-6 mb-3">
+  <label for="TVA" class="form-label">T.V.A</label>
+  <input
+    type="number"
+    id="TVA"
+    class="form-control"
+    formControlName="TVA"
+    [ngClass]="{ 'is-invalid': addServiceForm.get('TVA')?.invalid && addServiceForm.get('TVA')?.touched }"
+  />
+  <div class="invalid-feedback">
+    Le Taux TVA est requis.
+  </div>
+  <div class="invalid-feedback" *ngIf="addServiceForm.get('TVA')?.errors?.['tvaOutOfRange']">
+    La T.V.A doit être comprise entre 7 et 20.
+  </div>
+</div>
+
+<!-- Prix T.T.C -->
+<div class="col-md-6 mb-3">
+  <label for="PrixTTC" class="form-label">Prix T.T.C</label>
+  <input
+    type="number"
+    id="PrixTTC"
+    class="form-control"
+    formControlName="PrixTTC"
+    [ngClass]="{ 'is-invalid': addServiceForm.get('PrixTTC')?.invalid && addServiceForm.get('PrixTTC')?.touched }"
+  />
+  <div class="invalid-feedback">
+    Le Prix T.T.C est requis.
+  </div>
+</div>
+
+      <!-- Boutons -->
+      <div class="d-flex justify-content-end mt-4">
+        <button type="submit" class="btn btn-primary me-2" [disabled]="addServiceForm.invalid">
+          Enregistrer
+        </button>
+        <button type="button" class="btn btn-secondary" (click)="close()">
+          Annuler
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

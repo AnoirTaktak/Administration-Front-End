@@ -1,0 +1,108 @@
+<div class="container mt-4">
+  <h3 class="text-center">Ajouté Fournisseur</h3>
+  <form [formGroup]="addFournisseurForm" (ngSubmit)="save()">
+    <div class="row">
+
+      <!-- MF -->
+      <div class="col-md-6 mb-3">
+        <label for="MF_Fournisseur" class="form-label">Matricule Fiscale</label>
+        <input
+          type="text"
+          id="MF_Fournisseur"
+          class="form-control"
+          formControlName="MF_Fournisseur"
+          [ngClass]="{ 'is-invalid': isFieldInvalid('MF_Fournisseur') }"
+        />
+        <div class="invalid-feedback" *ngIf="addFournisseurForm.get('MF_Fournisseur')?.errors?.['required']">
+          Le MF est requis.
+        </div>
+        <div class="invalid-feedback" *ngIf="addFournisseurForm.get('MF_Fournisseur')?.errors?.['pattern']">
+          Le matricule fiscal est requis et verifié le format : 1234567EXP000.
+        </div>
+        <div class="invalid-feedback" *ngIf="addFournisseurForm.get('MF_Fournisseur')?.errors?.['MFNotUnique']">
+          Ce MF est déjà utilisé.
+        </div>
+      </div>
+
+      <!-- RS -->
+      <div class="col-md-6 mb-3">
+        <label for="RaisonSociale_Fournisseur" class="form-label">Raison Sociale </label>
+        <input
+          type="text"
+          id="RaisonSociale_Fournisseur"
+          class="form-control"
+          formControlName="RaisonSociale_Fournisseur"
+          [ngClass]="{ 'is-invalid': isFieldInvalid('RaisonSociale_Fournisseur') }"
+        />
+        <div class="invalid-feedback" *ngIf="addFournisseurForm.get('RaisonSociale_Fournisseur')?.errors?.['required']">
+          Le RS est requis.
+        </div>
+        <div class="invalid-feedback" *ngIf="addFournisseurForm.get('RaisonSociale_Fournisseur')?.errors?.['RSNotUnique']">
+          Ce RS est déjà utilisé.
+        </div>
+      </div>
+
+      <!-- Téléphone -->
+      <div class="col-md-6 mb-3">
+        <label for="Tel_Fournisseur" class="form-label">Téléphone</label>
+        <input
+          type="text"
+          id="Tel_Fournisseur"
+          class="form-control"
+          formControlName="Tel_Fournisseur"
+          [ngClass]="{ 'is-invalid': isFieldInvalid('Tel_Fournisseur') }"
+        />
+        <div class="invalid-feedback">Veuillez entrer un numéro de téléphone valide.</div>
+      </div>
+
+       <!-- Email -->
+       <div class="col-md-6 mb-3">
+        <label for="Email_Fournisseur" class="form-label">Email</label>
+        <input
+          type="email"
+          id="Email_Fournisseur"
+          class="form-control"
+          formControlName="Email_Fournisseur"
+          [ngClass]="{ 'is-invalid': addFournisseurForm.get('Email_Fournisseur')?.invalid && addFournisseurForm.get('Email_Fournisseur')?.touched }"
+        />
+        <div class="invalid-feedback">Le Email est requis.</div>
+      </div>
+
+      <!-- Adresse -->
+      <div class="col-md-6 mb-3">
+        <label for="Adresse_Fournisseur" class="form-label">Adresse</label>
+        <input
+          type="text"
+          id="Adresse_Fournisseur"
+          class="form-control"
+          formControlName="Adresse_Fournisseur"
+          [ngClass]="{ 'is-invalid': isFieldInvalid('Adresse_Fournisseur') }"
+        />
+        <div class="invalid-feedback">Le adresse est requis</div>
+      </div>
+
+      <!-- Type de Fournisseur -->
+      <div class="col-md-6 mb-3">
+        <label for="Type_Fournisseur" class="form-label">Type de Fournisseur</label>
+        <input
+          type="text"
+          id="Type_Fournisseur"
+          class="form-control"
+          formControlName="Type_Fournisseur"
+          [ngClass]="{ 'is-invalid': isFieldInvalid('Type_Fournisseur') }"
+        />
+        <div class="invalid-feedback">Le type de Fournisseur est requis.</div>
+      </div>
+
+      <!-- Boutons -->
+      <div class="d-flex justify-content-end mt-4">
+        <button type="submit" class="btn btn-primary me-2" [disabled]="addFournisseurForm.invalid">
+          Enregistrer
+        </button>
+        <button type="button" class="btn btn-secondary" (click)="close()">
+          Annuler
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

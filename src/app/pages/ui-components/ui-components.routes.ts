@@ -11,6 +11,9 @@ import { AppTablesComponent } from './tables/tables.component';
 import { SocieteComponent } from './societe/societe.component';
 import { EmployeComponent } from './employe/employe.component';
 import { DocumentsAdministratifComponent } from './documents-administratif/documents-administratif.component';
+import { ClientComponent } from './client/client.component';
+import { FournisseurComponent } from './fournisseur/fournisseur.component';
+import { ServiceComponent } from './service/service.component';
 
 
 export const UiComponentsRoutes: Routes = [
@@ -56,6 +59,16 @@ export const UiComponentsRoutes: Routes = [
       {
         path: 'Documents',
         component: DocumentsAdministratifComponent,
+      },
+      {
+        path: 'Clients',
+        component: ClientComponent,
+      },{
+        path: 'Fournisseurs',
+        component: FournisseurComponent,
+      },{
+        path: 'Services',
+        component: ServiceComponent,
       },
     ],
   },

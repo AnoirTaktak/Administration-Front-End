@@ -1,1 +1,99 @@
-<p>service works!</p>
+<mat-card class="cardWithShadow">
+  <mat-card-content>
+    <mat-card-title>Liste des Services</mat-card-title>
+
+    <div class="table-responsive">
+      <button mat-menu-item (click)="openAddDialog()">
+        <!-- Utilisation de l'icône SVG -->
+        <span class="custom-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 48 48">
+            <g fill="none" stroke-linejoin="round" stroke-width="4">
+              <rect width="36" height="36" x="6" y="6" fill="#2f88ff" stroke="#000" rx="3"/>
+              <path stroke="#fff" stroke-linecap="round" d="M24 16V32"/>
+              <path stroke="#fff" stroke-linecap="round" d="M16 24L32 24"/>
+            </g>
+          </svg>
+        </span>
+        <!-- Texte du bouton -->
+        <span>Ajouter</span>
+      </button>
+
+      <div class="filters">
+        <mat-form-field appearance="outline">
+          <mat-label>Rechercher par designation</mat-label>
+          <input matInput placeholder="Designation" [(ngModel)]="searchDes" (input)="applyFilters()">
+        </mat-form-field>
+
+        <table mat-table [dataSource]="Services" class="mat-elevation-z8">
+          <!-- Designation -->
+          <ng-container matColumnDef="des">
+            <th mat-header-cell *matHeaderCellDef class="f-w-600 mat-subtitle-1 f-s-14">
+              Designation
+            </th>
+            <td mat-cell *matCellDef="let element" class="mat-body-1">
+              <span class="text-dark f-w-600">{{ element.Designation_Service }}</span>
+            </td>
+          </ng-container>
+
+          <!-- P.U.H.T -->
+          <ng-container matColumnDef="pht">
+            <th mat-header-cell *matHeaderCellDef class="f-w-600 mat-subtitle-1 f-s-14">
+              P.U.H.T
+            </th>
+            <td mat-cell *matCellDef="let element" class="mat-body-1">
+              <span class="text-dark f-w-600">{{ element.PrixHT }} TND</span>
+            </td>
+          </ng-container>
+
+          <!-- TVA -->
+          <ng-container matColumnDef="tva">
+            <th mat-header-cell *matHeaderCellDef class="f-w-600 mat-subtitle-1 f-s-14">
+              TVA
+            </th>
+            <td mat-cell *matCellDef="let element" class="mat-body-1">
+              <span class="text-dark f-w-600">{{ element.TVA }}%</span>
+            </td>
+          </ng-container>
+
+          <!-- P.T.T.C -->
+          <ng-container matColumnDef="pttc">
+            <th mat-header-cell *matHeaderCellDef class="f-w-600 mat-subtitle-1 f-s-14">
+              P.T.T.C
+            </th>
+            <td mat-cell *matCellDef="let element" class="mat-body-1">
+              <span class="text-dark f-w-600">{{ element.PrixTTC }} TND</span>
+            </td>
+          </ng-container>
+
+          <!-- Actions -->
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef class="f-w-600 mat-subtitle-1 f-s-14">
+              Actions
+            </th>
+            <td mat-cell *matCellDef="let element" class="mat-body-1">
+              <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Actions">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="openEditDialog(element)">
+                  <mat-icon>edit</mat-icon>
+                  <span>Modifier</span>
+                </button>
+
+                <button mat-menu-item (click)="deleteService(element.ID_Service)">
+                  <mat-icon>delete</mat-icon>
+                  <span>Supprimer</span>
+                </button>
+              </mat-menu>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+      </div>
+    </div> <!-- Fin de .table-responsive -->
+  </mat-card-content>
+</mat-card>
+
+
