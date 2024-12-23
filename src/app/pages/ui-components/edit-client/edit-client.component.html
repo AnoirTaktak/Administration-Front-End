@@ -12,7 +12,10 @@
           formControlName="RS_Client"
           [ngClass]="{ 'is-invalid': editClientForm.get('RS_Client')?.invalid && editClientForm.get('RS_Client')?.touched }"
         />
-        <div class="invalid-feedback">Le RS est requis.</div>
+        <div class="invalid-feedback" *ngIf="editClientForm.get('RS_Client')?.errors?.['required']">Le RS est requis.</div>
+        <div class="invalid-feedback" *ngIf="editClientForm.get('RS_Client')?.errors?.['RSNotUnique']">
+          Ce RS est déjà utilisé.
+        </div>
       </div>
 
       <!-- MF -->
@@ -23,7 +26,7 @@
           id="MF_Client"
           class="form-control"
           formControlName="MF_Client"
-          [ngClass]="{ 'is-invalid': editClientForm.get('MF_Client')?.invalid && editClientForm.get('MF_Client')?.touched }"
+          [ngClass]="{ 'is-invalid': isFieldInvalid('MF_Client') }"
         />
         <div class="invalid-feedback" *ngIf="editClientForm.get('MF_Client')?.errors?.['required']">
           Le MF est requis.
@@ -59,9 +62,9 @@
           id="Tel_Client"
           class="form-control"
           formControlName="Tel_Client"
-          [ngClass]="{ 'is-invalid': editClientForm.get('Tel_Client')?.invalid && editClientForm.get('Tel_Client')?.touched }"
+          [ngClass]="{ 'is-invalid': isFieldInvalid('Tel_Client') }"
         />
-        <div class="invalid-feedback">Le téléphone est requis.</div>
+        <div class="invalid-feedback">Veuillez entrer un numéro de téléphone valide.</div>
       </div>
 
       <!-- Email -->

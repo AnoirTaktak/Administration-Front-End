@@ -49,7 +49,11 @@ export class EditClientComponent {
     this.loadClientsData();
     this.editClientForm = this.fb.group({
       RS_Client: [this.data.RS_Client, Validators.required],
-      MF_Client: [this.data.MF_Client, [Validators.required, Validators.pattern(/^[0-9]{7}[A-Za-z]{3}[0-9]{3}$/)]],
+      MF_Client: [this.data.MF_Client,  [
+        Validators.required,
+        Validators.pattern(/^[0-9]{7}[A-Za-z]{3}[0-9]{3}$/),
+        this.uniqueValidator(this.existingMFs, 'MFNotUnique'),
+      ]],
       Tel_Client: [this.data.Tel_Client, [Validators.required, Validators.pattern(/^\+216\d{8}$|^\d{8}$/)]],
       Adresse_Client : [this.data.Adresse_Client, [Validators.required]],
       Email_Client : [this.data.Email_Client, [Validators.required, Validators.email]],
@@ -67,12 +71,13 @@ export class EditClientComponent {
       console.log(this.existingMFs);
       console.log(this.existingRSs);
       // Mettre à jour les validateurs des champs
-      this.editClientForm.get('MF_Client')?.setValidators([
-        Validators.required,
-
-        this.uniqueValidator(this.existingMFs, 'MFNotUnique')
-      ]);
-      this.editClientForm.get('MF_Client')?.updateValueAndValidity();
+     // Mettre à jour les validateurs des champs
+     this.editClientForm.get('MF_Client')?.setValidators([
+      Validators.required,
+      Validators.pattern(/^[0-9]{7}[A-Za-z]{3}[0-9]{3}$/),
+      this.uniqueValidator(this.existingMFs, 'MFNotUnique')
+    ]);
+    this.editClientForm.get('MF_Client')?.updateValueAndValidity();
 
       this.editClientForm.get('RS_Client')?.setValidators([
         Validators.required,

@@ -67,17 +67,16 @@ export class EditFournisseurComponent {
 
       console.log(this.existingMFs);
       console.log(this.existingRSs);
-      // Mettre à jour les validateurs des champs
-      this.editFournisseurForm.get('MF_Fournisseur')?.setValidators([
+       // Mettre à jour les validateurs des champs
+       this.editFournisseurForm.get('MF_Fournisseur')?.setValidators([
         Validators.required,
-
+        Validators.pattern(/^[0-9]{7}[A-Za-z]{3}[0-9]{3}$/),
         this.uniqueValidator(this.existingMFs, 'MFNotUnique')
       ]);
-      this.editFournisseurForm.get('MF_Fournisseur')?.updateValueAndValidity();
+      this.editFournisseurForm.get('CIN_Fournisseur')?.updateValueAndValidity();
 
       this.editFournisseurForm.get('RaisonSociale_Fournisseur')?.setValidators([
         Validators.required,
-
         this.uniqueValidator(this.existingRSs, 'RSNotUnique')
       ]);
       this.editFournisseurForm.get('RaisonSociale_Fournisseur')?.updateValueAndValidity();
@@ -87,10 +86,12 @@ export class EditFournisseurComponent {
     }
   );
   }
+
   isFieldInvalid(field: string): boolean {
     const control = this.editFournisseurForm.get(field);
     return !!(control && control.invalid && (control.touched || control.dirty));
   }
+
 
   uniqueValidator(existingValues: string[], errorKey: string): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
@@ -111,6 +112,7 @@ export class EditFournisseurComponent {
         ...this.data,
         ...this.editFournisseurForm.value,
       };
+
 
       console.log('Fournisseur mis à jour :', updatedFournisseur);
 

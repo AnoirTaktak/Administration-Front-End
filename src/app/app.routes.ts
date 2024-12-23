@@ -24,11 +24,6 @@ export const routes: Routes = [
             (m) => m.UiComponentsRoutes
           ),
       },
-      {
-        path: 'extra',
-        loadChildren: () =>
-          import('./pages/extra/extra.routes').then((m) => m.ExtraRoutes),
-      }
     ],
   },
   {
@@ -48,4 +43,5 @@ export const routes: Routes = [
     path: '**',
     redirectTo: 'authentication/error',
   },
+
 ];

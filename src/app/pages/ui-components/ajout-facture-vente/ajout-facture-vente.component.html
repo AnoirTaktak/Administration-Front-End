@@ -1,0 +1,145 @@
+<div class="container">
+  <h1>Ajout de Facture de Vente</h1>
+
+  <!-- Sélection du client -->
+  <div class="form-group">
+    <label for="client">Sélectionner un client :</label>
+    <select
+      id="client"
+      class="form-control"
+      [(ngModel)]="clientSelectionne"
+      required
+    >
+      <option *ngFor="let client of clients" [ngValue]="client">
+        {{ client.RS_Client }}
+      </option>
+    </select>
+  </div>
+
+<!-- Ajout de lignes de facture -->
+<div class="form-group">
+  <label for="service">Sélectionner un service :</label>
+  <select id="service" class="form-control" [(ngModel)]="serviceSelectionne">
+    <option *ngFor="let service of services" [ngValue]="service">
+      {{ service.Designation_Service }}
+    </option>
+  </select>
+</div>
+<div class="form-group">
+  <label for="quantite">Quantité :</label>
+  <input
+    id="quantite"
+    type="number"
+    class="form-control"
+    [(ngModel)]="quantite"
+  />
+</div>
+<button class="btn btn-primary" (click)="ajouterLigne(serviceSelectionne, quantite)">
+  Ajouter Ligne
+</button>
+
+
+  <!-- Table des lignes ajoutées -->
+  <h2>Details de Facture</h2>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Service</th>
+        <th>Quantité</th>
+        <th>Total Ligne HT</th>
+        <th>TVA</th>
+        <th>Total Ligne TTC</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let ligne of lignesFacture; let i = index">
+        <td>{{ ligne.Designation_Service }}</td>
+        <td>
+          <input
+            type="number"
+            class="form-control"
+            [(ngModel)]="ligne.Quantite"
+            (input)="calculerTotalFacture(ligne)"
+          />
+        </td>
+
+        <td>{{ ligne.Total_LigneHT }}</td>
+        <td>{{ligne.TVA}}</td>
+        <td>{{ ligne.Total_LigneFV }}</td>
+        <td>
+          <button class="btn btn-danger" (click)="lignesFacture.splice(i, 1)" (click)="calculerTotalFacture()">
+            Supprimer
+          </button>
+        </td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="4" class="text-end"><strong>Remise % :</strong></td>
+        <td>
+          <input
+            type="number"
+            class="form-control"
+            [(ngModel)]="remise"
+            (input)="calculerTotalFacture()"
+          />
+        </td>
+      </tr>
+
+      <tr>
+        <td colspan="4" class="text-end"><strong>Total HT (TND) :</strong></td>
+        <td>
+          <input
+            type="number"
+            class="form-control"
+            [value]="totalFactureHT"
+            disabled
+          />
+        </td>
+      </tr>
+      <tr>
+        <td colspan="4" class="text-end"><strong>TVA (TND) :</strong></td>
+        <td>
+          <input
+            type="number"
+            class="form-control"
+            [value]="TVA"
+            disabled
+          />
+        </td>
+      </tr>
+      <tr>
+        <td colspan="4" class="text-end"><strong>Timbre Fiscal (TND) :</strong></td>
+        <td>
+          <input
+            type="number"
+            class="form-control"
+            [(ngModel)]="timbreFiscale"
+            (input)="calculerTotalFacture()"
+          />
+        </td>
+      </tr>
+      <tr>
+        <td colspan="4" class="text-end"><strong>Total Facture (TND) :</strong></td>
+        <td>
+          <input
+            type="number"
+            class="form-control"
+            [value]="totalFacture"
+            disabled
+          />
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+
+  <!-- Enregistrement de la facture -->
+  <button
+    class="btn btn-success"
+    [disabled]="!clientSelectionne || lignesFacture.length === 0"
+    (click)="enregistrerFacture()"
+  >
+    Enregistrer la Facture
+  </button>
+</div>

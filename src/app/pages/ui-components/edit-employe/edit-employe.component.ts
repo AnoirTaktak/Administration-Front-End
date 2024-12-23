@@ -36,6 +36,7 @@ export class EditEmployeComponent implements OnInit {
   editEmployeForm!: FormGroup;
   existingCINs: any[] = [];
 existingCNSSs: any[] = [];
+existingNoms: any[] = [];
 isDateFinDisabled = false;
   //employeForm: FormGroup;
 
@@ -50,7 +51,7 @@ isDateFinDisabled = false;
 
     this.loadEmployesData();
     this.editEmployeForm = this.fb.group({
-      Nom_Employe: [this.data.Nom_Employe, Validators.required],
+      Nom_Employe: [this.data.Nom_Employe, [Validators.required,this.uniqueValidator(this.existingNoms, 'nomNotUnique')]],
       Poste_Employe: [this.data.Poste_Employe, Validators.required],
       CIN_Employe: [
         this.data.CIN_Employe,
@@ -96,6 +97,7 @@ isDateFinDisabled = false;
     (employes: Employe[]) => {
       this.existingCINs = employes.map(e => e.CIN_Employe != this.data.CIN_Employe ? e.CIN_Employe : null);
       this.existingCNSSs = employes.map(e => e.CNSS_Employe != this.data.CNSS_Employe ? e.CNSS_Employe : null);
+      this.existingNoms = employes.map(e => e.Nom_Employe != this.data.Nom_Employe ? e.Nom_Employe : null);
 
       console.log(this.existingCINs);
       console.log(this.existingCNSSs);
@@ -106,6 +108,12 @@ isDateFinDisabled = false;
         this.uniqueValidator(this.existingCINs, 'cinNotUnique')
       ]);
       this.editEmployeForm.get('CIN_Employe')?.updateValueAndValidity();
+
+      this.editEmployeForm.get('Nom_Employe')?.setValidators([
+        Validators.required,
+        this.uniqueValidator(this.existingNoms, 'nomNotUnique')
+      ]);
+      this.editEmployeForm.get('Nom_Employe')?.updateValueAndValidity();
 
       this.editEmployeForm.get('CNSS_Employe')?.setValidators([
         Validators.required,

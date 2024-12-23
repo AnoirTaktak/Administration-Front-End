@@ -1,0 +1,93 @@
+<mat-card class="cardWithShadow theme-card">
+  <mat-card-header>
+    <mat-card-title class="m-b-0">Modifier la Facture d'Achat</mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="b-t-1">
+    <form #factureForm="ngForm" novalidate>
+      <div class="row">
+       <!-- Date de Facture -->
+<div class="col-lg-6">
+  <mat-label class="f-w-600 m-b-8 d-block">Date de Facture</mat-label>
+  <mat-form-field appearance="outline" class="w-100" color="primary">
+    <input matInput [matDatepicker]="picker" [(ngModel)]="factureAchat.DateAchat" name="DateAchat" required #dateFacture="ngModel" />
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle> <!-- Icone de calendrier -->
+    <mat-datepicker #picker></mat-datepicker> <!-- Affichage du calendrier -->
+    <mat-error *ngIf="factureForm.controls['DateAchat']?.invalid && factureForm.controls['DateAchat']?.touched">
+      La date de la facture est obligatoire.
+    </mat-error>
+  </mat-form-field>
+</div>
+        <!-- Numéro de Facture -->
+        <div class="col-lg-6">
+          <mat-label class="f-w-600 m-b-8 d-block">Numéro de Facture</mat-label>
+          <mat-form-field appearance="outline" class="w-100" color="primary">
+            <input matInput placeholder="Exemple : FAC12345" [(ngModel)]="factureAchat.Numero_FactureAchat" name="Numero_FactureAchat" required #numeroFacture="ngModel" />
+            <mat-error *ngIf="factureForm.controls['Numero_FactureAchat']?.invalid && factureForm.controls['Numero_FactureAchat']?.touched">
+              Le numéro de facture est obligatoire.
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <!-- Fournisseur -->
+        <div class="col-lg-6">
+          <mat-label class="f-w-600 m-b-8 d-block">Fournisseur</mat-label>
+          <mat-form-field appearance="outline" class="w-100" color="primary">
+            <mat-select [(ngModel)]="factureAchat.ID_Fournisseur" name="ID_Fournisseur" required>
+              <mat-option *ngFor="let fournisseur of fournisseurs" [value]="fournisseur.ID_Fournisseur">
+                {{ fournisseur.RaisonSociale_Fournisseur }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="factureForm.controls['ID_Fournisseur']?.invalid && factureForm.controls['ID_Fournisseur']?.touched">
+              Sélectionner un fournisseur est obligatoire.
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <!-- État de Paiement -->
+<div class="col-lg-6">
+  <mat-label class="f-w-600 m-b-8 d-block">État de Paiement</mat-label>
+  <mat-form-field appearance="outline" class="w-100" color="primary">
+    <mat-select [(ngModel)]="factureAchat.EtatPaiement" name="EtatPaiement" required>
+      <mat-option [value]=true>Payé</mat-option>
+      <mat-option [value]=false>Non Payé</mat-option>
+    </mat-select>
+    <mat-error *ngIf="factureForm.controls['EtatPaiement']?.invalid && factureForm.controls['EtatPaiement']?.touched">
+      Sélectionnez l'état de paiement.
+    </mat-error>
+  </mat-form-field>
+</div>
+
+
+        <!-- Montant Total -->
+        <div class="col-lg-6">
+          <mat-label class="f-w-600 m-b-8 d-block">Montant Total</mat-label>
+          <mat-form-field appearance="outline" class="w-100" color="primary">
+            <input matInput type="number" [(ngModel)]="factureAchat.Montant" name="Montant" required #montantTotal="ngModel" />
+            <mat-error *ngIf="factureForm.controls['Montant']?.invalid && factureForm.controls['Montant']?.touched">
+              Le montant total est obligatoire.
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <!-- Bouton pour visualiser l'image de la facture -->
+        <div class="col-lg-6" *ngIf="factureAchat">
+          <mat-label class="f-w-600 m-b-8 d-block">fichier de la facture</mat-label>
+
+          <input class="form-control form-control-lg" type="file" (change)="onFileSelected($event)" accept="image/*" />
+        </div>
+        <div class="col-lg-6" >
+          <mat-label class="f-w-600 m-b-8 d-block">Voir l'image de la facture</mat-label>
+          <button mat-button color="primary" (click)="openFactureModal(factureAchat.ImageFacture)">Afficher la facture</button>
+        </div>
+      </div>
+
+
+      <div class="row mt-3">
+        <button mat-raised-button color="primary" (click)="updateFactureAchat()" [disabled]="factureForm.invalid">
+          Mettre à jour
+        </button>
+        <button mat-raised-button color="warn" type="button" (click)="cancelChanges()">Annuler</button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

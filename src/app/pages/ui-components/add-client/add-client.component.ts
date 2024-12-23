@@ -66,7 +66,7 @@ loadClientsData(): void {
         Validators.pattern(/^[0-9]{7}[A-Za-z]{3}[0-9]{3}$/),
         this.uniqueValidator(this.existingMFs, 'MFNotUnique')
       ]);
-      this.addClientForm.get('CIN_Client')?.updateValueAndValidity();
+      this.addClientForm.get('MF_Client')?.updateValueAndValidity();
 
       this.addClientForm.get('RS_Client')?.setValidators([
         Validators.required,

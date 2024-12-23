@@ -1,0 +1,78 @@
+<div class="filters">
+  <button mat-menu-item (click)="openAddDialog()">
+    <!-- Utilisation de l'icône SVG -->
+    <span class="custom-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 48 48">
+        <g fill="none" stroke-linejoin="round" stroke-width="4">
+          <rect width="36" height="36" x="6" y="6" fill="#2f88ff" stroke="#000" rx="3"/>
+          <path stroke="#fff" stroke-linecap="round" d="M24 16V32"/>
+          <path stroke="#fff" stroke-linecap="round" d="M16 24L32 24"/>
+        </g>
+      </svg>
+    </span>
+    <!-- Texte du bouton -->
+    <span>Ajouter</span>
+  </button>
+  <!-- Champ de recherche par fournisseur -->
+  <mat-form-field appearance="outline">
+    <mat-label>Rechercher par fournisseur</mat-label>
+    <input matInput placeholder="Fournisseur" [(ngModel)]="searchFournisseur" (input)="applyFilters()">
+  </mat-form-field>
+
+  <!-- Sélection de l'état de paiement -->
+  <mat-form-field appearance="outline">
+    <mat-label>État de paiement</mat-label>
+    <mat-select [(ngModel)]="searchEtatPaiement" (selectionChange)="applyFilters()">
+      <mat-option [value]="undefined">Tout</mat-option>
+      <mat-option [value]="true">Payé</mat-option>
+      <mat-option [value]="false">Non payé</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <!-- Date de début -->
+  <mat-form-field appearance="outline">
+    <mat-label>Date de début</mat-label>
+    <input matInput [matDatepicker]="datePickerDebut" [(ngModel)]="dateDebut"   (dateChange)="applyFilters()" >
+    <mat-datepicker-toggle matSuffix [for]="datePickerDebut"></mat-datepicker-toggle>
+    <mat-datepicker #datePickerDebut></mat-datepicker>
+  </mat-form-field>
+
+  <!-- Date de fin -->
+  <mat-form-field appearance="outline">
+    <mat-label>Date de fin</mat-label>
+    <input matInput [matDatepicker]="datePickerFin" [(ngModel)]="dateFin" (dateChange)="applyFilters()">
+    <mat-datepicker-toggle matSuffix [for]="datePickerFin"></mat-datepicker-toggle>
+    <mat-datepicker #datePickerFin></mat-datepicker>
+  </mat-form-field>
+
+</div>
+
+<div class="factures-cards">
+  <div *ngFor="let facture of factures" class="card"
+       [ngClass]="facture.EtatPaiement ? 'border-payé' : 'border-non-payé'">
+    <mat-card class="example-card" appearance="outlined">
+      <mat-card-header>
+        <mat-card-title>Numéro Facture : {{facture.Numero_FactureAchat}}</mat-card-title>
+        <mat-card-subtitle>Date d'Achat : {{facture.DateAchat | date: 'dd/MM/yyyy'}}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="facture-details">
+          <p><strong>Fournisseur :</strong> {{facture.RaisonSocialeFournisseur}}</p>
+          <p><strong>Montant :</strong> {{facture.Montant | currency}}</p>
+          <p><strong>État de paiement :</strong> {{facture.EtatPaiement ? 'Payé' : 'Non Payé'}}</p>
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-icon-button matTooltip="Modifier" (click)="openEditDialog(facture)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button matTooltip="Supprimer" (click)="deleteFacture(facture.ID_FactureAchat)">
+          <mat-icon>delete</mat-icon>
+        </button>
+        <button mat-icon-button matTooltip="Afficher" (click)="openFactureModal(facture.ImageFacture)">
+          <mat-icon>visibility</mat-icon>
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

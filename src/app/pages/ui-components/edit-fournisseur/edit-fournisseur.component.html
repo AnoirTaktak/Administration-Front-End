@@ -10,9 +10,14 @@
           id="RaisonSociale_Fournisseur"
           class="form-control"
           formControlName="RaisonSociale_Fournisseur"
-          [ngClass]="{ 'is-invalid': editFournisseurForm.get('RaisonSociale_Fournisseur')?.invalid && editFournisseurForm.get('RaisonSociale_Fournisseur')?.touched }"
+          [ngClass]="{ 'is-invalid': isFieldInvalid('RaisonSociale_Fournisseur') }"
         />
-        <div class="invalid-feedback">Le RS est requis.</div>
+        <div class="invalid-feedback" *ngIf="editFournisseurForm.get('RaisonSociale_Fournisseur')?.errors?.['required']">
+          Le RS est requis.
+        </div>
+        <div class="invalid-feedback" *ngIf="editFournisseurForm.get('RaisonSociale_Fournisseur')?.errors?.['RSNotUnique']">
+          Ce RS est déjà utilisé.
+        </div>
       </div>
 
       <!-- MF -->
@@ -23,19 +28,18 @@
           id="MF_Fournisseur"
           class="form-control"
           formControlName="MF_Fournisseur"
-          [ngClass]="{ 'is-invalid': editFournisseurForm.get('MF_Fournisseur')?.invalid && editFournisseurForm.get('MF_Fournisseur')?.touched }"
-        />
-        <div class="invalid-feedback" *ngIf="editFournisseurForm.get('MF_Fournisseur')?.errors?.['required']">
-          Le MF est requis.
-        </div>
-        <div class="invalid-feedback" *ngIf="editFournisseurForm.get('MF_Fournisseur')?.errors?.['pattern']">
-          Le matricule fiscal est requis et verifié le format : 1234567EXP000.
-        </div>
-        <div class="invalid-feedback" *ngIf="editFournisseurForm.get('MF_Fournisseur')?.errors?.['MFNotUnique']">
-          Ce MF est déjà utilisé.
-        </div>
+          [ngClass]="{ 'is-invalid': isFieldInvalid('MF_Fournisseur') }"
+          />
+          <div class="invalid-feedback" *ngIf="editFournisseurForm.get('MF_Fournisseur')?.errors?.['required']">
+            Le MF est requis.
+          </div>
+          <div class="invalid-feedback" *ngIf="editFournisseurForm.get('MF_Fournisseur')?.errors?.['pattern']">
+            Le matricule fiscal est requis et verifié le format : 1234567EXP000.
+          </div>
+          <div class="invalid-feedback" *ngIf="editFournisseurForm.get('MF_Fournisseur')?.errors?.['MFNotUnique']">
+            Ce MF est déjà utilisé.
+          </div>
       </div>
-
        <!-- Adresse -->
        <div class="col-md-6 mb-3">
         <label for="Adresse_Fournisseur" class="form-label">Adresse</label>
@@ -59,9 +63,9 @@
           id="Tel_Fournisseur"
           class="form-control"
           formControlName="Tel_Fournisseur"
-          [ngClass]="{ 'is-invalid': editFournisseurForm.get('Tel_Fournisseur')?.invalid && editFournisseurForm.get('Tel_Fournisseur')?.touched }"
+          [ngClass]="{ 'is-invalid': isFieldInvalid('Tel_Fournisseur') }"
         />
-        <div class="invalid-feedback">Le téléphone est requis.</div>
+        <div class="invalid-feedback">Veuillez entrer un numéro de téléphone valide.</div>
       </div>
 
       <!-- Email -->

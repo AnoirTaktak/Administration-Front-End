@@ -1,0 +1,58 @@
+<div class="facture-container">
+  <!-- Header de la facture -->
+  <div class="header">
+    <div class="logo-section">
+      <img src="src/assets/images/backgrounds/login-bg.jpg" alt="Logo Société" class="logo" />
+      <div class="societe-info">
+        <h2>{{ societe?.RaisonSociale_Societe }}</h2>
+        <p>{{ societe?.Adresse_Societe }}</p>
+        <p>Matricule Fiscale : {{ societe?.MF_Societe }}</p>
+      </div>
+    </div>
+    <div class="facture-details">
+      <h3>Facture N° {{ factureData?.NumeroFacture }}</h3>
+      <p>Date : {{ factureData?.DateFacture }}</p>
+      <p>Client : {{ factureData?.Client?.RS_Client }}</p>
+      <p>MF : {{ factureData?.Client?.MF_Client }}</p>
+    </div>
+  </div>
+
+  <!-- Lignes de la facture -->
+  <div class="lignes-facture">
+    <table>
+      <thead>
+        <tr>
+          <th>Désignation</th>
+          <th>Quantité</th>
+          <th>Prix HT</th>
+          <th>TVA</th>
+          <th>Total TTC</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let ligne of factureData?.LignesFacture">
+          <td>{{ ligne.Designation_Service }}</td>
+          <td>{{ ligne.Quantite }}</td>
+          <td>{{ ligne.Total_LigneHT }}</td>
+          <td>{{ ligne.TVA_Service }}</td>
+          <td>{{ ligne.Total_LigneFV }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Totaux -->
+  <div class="totaux-section">
+    <p>Remise : {{ factureData?.Remise || '0.00' }}</p>
+    <p>Total HT : {{ factureData?.Total_FactureVenteHT || '0.00' }}</p>
+    <p>Timbre Fiscal : {{ factureData?.TimbreFiscale || '0.00' }}</p>
+    <h3>Total TTC : {{ factureData?.Total_FactureVente }}</h3>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <p>{{ societe?.RaisonSociale_Societe }} | {{ societe?.Adresse_Societe }} | Tel : {{ societe?.Tel_Societe }}</p>
+    <p>Page 1/1</p>
+  </div>
+</div>
+<button  (click)="imprimerFacture()">Imprimer la facture</button>

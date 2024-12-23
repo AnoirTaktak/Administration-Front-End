@@ -1,0 +1,78 @@
+<mat-card class="cardWithShadow theme-card">
+  <mat-card-header>
+    <mat-card-title>Ajouter une Facture d'Achat</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <form [formGroup]="factureAchatForm" (ngSubmit)="onSubmit()" novalidate>
+      <div class="row">
+        <div class="col-lg-6">
+          <mat-label class="f-w-600 m-b-8">Numéro de Facture</mat-label>
+          <mat-form-field appearance="outline" class="w-100">
+            <input matInput formControlName="Numero_FactureAchat" required />
+            <mat-error *ngIf="factureAchatForm.controls['Numero_FactureAchat'].invalid && factureAchatForm.controls['Numero_FactureAchat'].touched">
+              Le numéro de facture est obligatoire.
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-lg-6">
+          <mat-label class="f-w-600 m-b-8">Date d'Achat</mat-label>
+          <mat-form-field appearance="outline" class="w-100">
+            <input matInput [matDatepicker]="picker" formControlName="DateAchat" required />
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-error *ngIf="factureAchatForm.controls['DateAchat'].invalid && factureAchatForm.controls['DateAchat'].touched">
+              La date d'achat est obligatoire.
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-lg-6">
+          <mat-label class="f-w-600 m-b-8">Fournisseur</mat-label>
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-select formControlName="ID_Fournisseur" required>
+              <mat-option *ngFor="let fournisseur of fournisseurs" [value]="fournisseur.ID_Fournisseur">
+                {{ fournisseur.RaisonSociale_Fournisseur }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="factureAchatForm.controls['ID_Fournisseur'].invalid && factureAchatForm.controls['ID_Fournisseur'].touched">
+              Le fournisseur est obligatoire.
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-lg-6">
+          <mat-label class="f-w-600 m-b-8">Montant</mat-label>
+          <mat-form-field appearance="outline" class="w-100">
+            <input matInput type="number" formControlName="Montant" required />
+            <mat-error *ngIf="factureAchatForm.controls['Montant'].invalid && factureAchatForm.controls['Montant'].touched">
+              Le montant est obligatoire.
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-lg-6">
+          <mat-label class="f-w-600 m-b-8">État de Paiement</mat-label>
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-select formControlName="EtatPaiement" required>
+              <mat-option value="true">Payé</mat-option>
+              <mat-option value="false">Non Payé</mat-option>
+            </mat-select>
+            <mat-error *ngIf="factureAchatForm.controls['EtatPaiement'].invalid && factureAchatForm.controls['EtatPaiement'].touched">
+              Sélectionnez l'état de paiement.
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-lg-6">
+          <mat-label class="f-w-600 m-b-8 d-block">fichier de la facture</mat-label>
+
+          <input class="form-control form-control-lg" type="file" (change)="onFileSelected($event)" accept="image/*" />
+        </div>
+        <div class="col-lg-6" >
+          <mat-label class="f-w-600 m-b-8 d-block">Voir l'image de la facture</mat-label>
+          <button mat-button color="primary" (click)="openFactureModal()">Afficher la facture</button>
+        </div>
+      </div>
+      <div class="row mt-3">
+        <button mat-raised-button color="primary" type="submit" [disabled]="factureAchatForm.invalid">Ajouter</button>
+        <button mat-raised-button color="warn" type="button" (click)="factureAchatForm.reset()">Annuler</button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

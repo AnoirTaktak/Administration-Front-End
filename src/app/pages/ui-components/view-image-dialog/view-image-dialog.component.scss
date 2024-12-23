@@ -1,0 +1,85 @@
+/* Conteneur principal */
+.document-preview-container {
+  max-width: 900px;
+  margin: 30px auto;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  text-align: center;
+}
+
+/* Titre */
+.document-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Conteneur d'aperçu */
+.document-preview {
+  margin-bottom: 20px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.pdf-frame {
+  border-radius: 8px;
+}
+
+.image-preview {
+  max-width: 100%;
+  max-height: 600px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Message d'erreur */
+.invalid-file-message {
+  color: #d32f2f;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+/* Conteneur des boutons */
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+/* Boutons */
+button {
+  font-size: 16px;
+  padding: 10px 20px;
+  border-radius: 50px;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Bouton télécharger */
+.download-button {
+  background-color: #4caf50;
+  color: white;
+}
+
+.download-button:hover {
+  background-color: #388e3c;
+}
+
+/* Bouton imprimer */
+.print-button {
+  background-color: #ff5722;
+  color: white;
+}
+
+.print-button:hover {
+  background-color: #d84315;
+}

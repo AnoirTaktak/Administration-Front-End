@@ -12,7 +12,7 @@ import { environment } from 'src/environments/environment';
 })
 export class SocieteService {
 
-  private urlHote = environment.urlHote+'Societe/'; // URL de l'API définie dans le fichier environment
+  private urlHote = environment.urlHote+'Societe'; // URL de l'API définie dans le fichier environment
   constructor(private http :HttpClient)
   {
 

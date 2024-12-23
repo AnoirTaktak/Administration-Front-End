@@ -27,6 +27,7 @@ export class AddEmployeComponent {
   addEmployeForm!: FormGroup;
   existingCINs: any[] = [];
   existingCNSSs: any[] = [];
+  existingNoms: any[] = [];
   isDateFinDisabled = false;
 
   constructor(
@@ -39,7 +40,7 @@ export class AddEmployeComponent {
 
     this.loadEmployesData();
     this.addEmployeForm = this.fb.group({
-      Nom_Employe: ['', Validators.required],
+      Nom_Employe: ['', [Validators.required,this.uniqueValidator(this.existingNoms, 'nomNotUnique'),]],
       Poste_Employe: ['', Validators.required],
       CIN_Employe: [
         '',
@@ -85,6 +86,7 @@ loadEmployesData(): void {
     (employes: Employe[]) => {
       this.existingCINs = employes.map(e => e.CIN_Employe);
       this.existingCNSSs = employes.map(e => e.CNSS_Employe);
+      this.existingNoms = employes.map(e=>e.Nom_Employe);
 
       // Mettre à jour les validateurs des champs
       this.addEmployeForm.get('CIN_Employe')?.setValidators([
@@ -93,6 +95,12 @@ loadEmployesData(): void {
         this.uniqueValidator(this.existingCINs, 'cinNotUnique')
       ]);
       this.addEmployeForm.get('CIN_Employe')?.updateValueAndValidity();
+
+      this.addEmployeForm.get('Nom_Employe')?.setValidators([
+        Validators.required,
+        this.uniqueValidator(this.existingNoms, 'nomNotUnique')
+      ]);
+      this.addEmployeForm.get('Nom_Employe')?.updateValueAndValidity();
 
       this.addEmployeForm.get('CNSS_Employe')?.setValidators([
         Validators.required,

@@ -12,7 +12,10 @@
           formControlName="Nom_Employe"
           [ngClass]="{ 'is-invalid': isFieldInvalid('Nom_Employe') }"
         />
-        <div class="invalid-feedback">Le nom est requis.</div>
+        <div class="invalid-feedback" *ngIf="addEmployeForm.get('Nom_Employe')?.errors?.['required']">Le nom est requis.</div>
+        <div class="invalid-feedback" *ngIf="addEmployeForm.get('Nom_Employe')?.errors?.['nomNotUnique']">
+          Ce Nom est déjà utilisé.
+        </div>
       </div>
 
       <!-- Poste -->

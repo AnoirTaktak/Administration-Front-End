@@ -13,7 +13,6 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 import { TablerIconsModule } from 'angular-tabler-icons';
 import { HeaderComponent } from './header/header.component';
-import { SocieteComponent } from 'src/app/pages/ui-components/societe/societe.component';
 
 const MOBILE_VIEW = 'screen and (max-width: 768px)';
 const TABLET_VIEW = 'screen and (min-width: 769px) and (max-width: 1024px)';
@@ -33,7 +32,6 @@ const BELOWMONITOR = 'screen and (max-width: 1023px)';
     NgScrollbarModule,
     TablerIconsModule,
     HeaderComponent,
-    SocieteComponent,
     MatSidenavModule,
     MatSidenav,
     MatSidenavContent,

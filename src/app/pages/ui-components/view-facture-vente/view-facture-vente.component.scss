@@ -1,0 +1,104 @@
+.facture-container {
+  font-family: Arial, sans-serif;
+  max-width: 800px;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  background: #f9f9f9;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.logo-section {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  height: 80px;
+  margin-right: 20px;
+}
+
+.societe-info h2 {
+  margin: 0;
+  font-size: 1.5em;
+  color: #333;
+}
+
+.facture-details {
+  text-align: right;
+}
+
+.facture-info-box {
+  border: 1px solid #ddd;
+  padding: 10px;
+  background: #fff;
+}
+
+.lignes-facture table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+
+.lignes-facture th, .lignes-facture td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+.lignes-facture th {
+  background: #f0f0f0;
+  font-weight: bold;
+}
+
+.totaux-section {
+  margin-top: 20px;
+  text-align: right;
+}
+
+.totaux-box {
+  border: 1px solid #ddd;
+  padding: 10px;
+  background: #fff;
+  display: inline-block;
+}
+
+.montant-lettres {
+  margin-top: 10px;
+  font-style: italic;
+}
+
+.footer {
+  text-align: center;
+  font-size: 0.8em;
+  color: #555;
+  margin-top: 20px;
+  border-top: 1px solid #ddd;
+  padding-top: 10px;
+}
+@media print {
+  button {
+    display: none; /* Cache tous les boutons */
+  }
+
+  /* Si vous voulez cibler uniquement ce bouton spécifique */
+  .facture-container ~ button {
+    display: none;
+  }
+
+  /* Optionnel : Optimiser l'affichage à l'impression */
+  body {
+    margin: 0;
+    padding: 0;
+  }
+
+  .facture-container {
+    width: 100%;
+  }
+}

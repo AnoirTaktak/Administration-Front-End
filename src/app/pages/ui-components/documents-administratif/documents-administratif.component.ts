@@ -18,7 +18,6 @@ import { MatTableModule } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { TypedocumentService } from 'src/app/services/typedocument/typedocument.service';
 import { TypeDocument } from 'src/Models/typedocument'; // Assurez-vous d'avoir un modèle pour les types de documents
-import { AppFormsComponent } from '../forms/forms.component';
 import { EmployeService } from 'src/app/services/employe/employe.service';
 import { DocumentService } from 'src/app/services/document/document.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';

@@ -1,0 +1,28 @@
+<div class="document-preview-container">
+  <h4 class="document-title">Aperçu du document</h4>
+
+  <!-- Affichage pour PDF -->
+  <div *ngIf="fileType === 'pdf'" class="document-preview">
+    <iframe [src]="safeUrl" style="width: 100%; height: 600px;" frameborder="0" class="pdf-frame"></iframe>
+  </div>
+
+  <!-- Affichage pour Image -->
+  <div *ngIf="fileType === 'image'" class="document-preview">
+    <img [src]="safeUrl" alt="Aperçu de l'image" class="image-preview" />
+  </div>
+
+  <!-- Message si le fichier est invalide -->
+  <div *ngIf="!fileType" class="invalid-file-message">
+    <p>Type de fichier non pris en charge.</p>
+  </div>
+
+  <!-- Boutons d'actions -->
+  <div class="action-buttons">
+    <button mat-raised-button color="primary" (click)="downloadFile()" *ngIf="safeUrl" class="download-button">
+      Télécharger
+    </button>
+    <button mat-raised-button color="accent" (click)="printFile()" class="print-button">
+      Imprimer
+    </button>
+  </div>
+</div>
