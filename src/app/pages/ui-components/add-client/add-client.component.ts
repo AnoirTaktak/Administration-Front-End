@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { ClientService } from 'src/app/services/client/client.service';
+import { LoginService } from 'src/app/services/login/login.service';
 import { Client } from 'src/Models/client';
 
 @Component({
@@ -24,7 +25,7 @@ export class AddClientComponent {
   constructor(
     public dialogRef: MatDialogRef<AddClientComponent>,
     private fb: FormBuilder,
-    private ClientService: ClientService
+    private ClientService: ClientService,private authService: LoginService
   ) {}
 
   ngOnInit(): void {

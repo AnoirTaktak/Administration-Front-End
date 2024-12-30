@@ -24,6 +24,7 @@ import { MatDatepicker, matDatepickerAnimations, MatDatepickerModule, MatDateRan
 import { ViewImageDialogComponent } from '../view-image-dialog/view-image-dialog.component';
 import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
 import { FournisseurService } from 'src/app/services/fournisseur/fournisseur.service';
+import { LoginService } from 'src/app/services/login/login.service';
 
 @Component({
   selector: 'app-facture-achat',
@@ -73,7 +74,7 @@ export class FactureAchatComponent {
     private fourServ: FournisseurService,
     private snackBar: MatSnackBar,
     private dialog: MatDialog,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,public authService: LoginService
   ) {}
 
   ngOnInit(): void {
@@ -290,7 +291,7 @@ if (this.dateDebut || this.dateFin) {
 
         // Rafraîchir les données après la modification
         this.consulterFactures();
-      
+
     });
 
   }

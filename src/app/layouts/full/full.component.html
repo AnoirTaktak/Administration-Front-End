@@ -13,7 +13,13 @@
           <app-nav-item [item]="item" (notify)="sidenav.toggle()">
           </app-nav-item>
           }
+          <!-- Ajout du bouton logout -->
+          <button mat-list-item (click)="logout()">
+            <mat-icon>logout</mat-icon>
+            Déconnexion
+          </button>
         </mat-nav-list>
+
       </ng-scrollbar>
     </div>
   </mat-sidenav>

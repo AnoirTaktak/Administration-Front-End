@@ -59,4 +59,8 @@ export class FactureAchatService {
   deleteFactureAchat(id: number): Observable<string> {
     return this.http.delete<string>(`${this.urlHote}FactureAchat/${id}`);
   }
+
+  getIncomeStats(): Observable<any> {
+    return this.http.get<any>(`${this.urlHote}FactureAchat/income-stats`);
+  }
 }

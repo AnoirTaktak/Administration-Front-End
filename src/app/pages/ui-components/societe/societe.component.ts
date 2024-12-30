@@ -13,6 +13,7 @@ import { Societe } from 'src/Models/societe';
 import { DomSanitizer } from '@angular/platform-browser';
 import { HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { LoginService } from 'src/app/services/login/login.service';
 
 @Component({
   selector: 'app-societe',
@@ -44,7 +45,7 @@ export class SocieteComponent implements OnInit {
 
 
 
-  constructor(private societeService: SocieteService,private sanitizer: DomSanitizer,private snackBar: MatSnackBar) {}
+  constructor(private societeService: SocieteService,private sanitizer: DomSanitizer,private snackBar: MatSnackBar,public authService: LoginService) {}
 
   ngOnInit(): void {
     console.log("Initialisation du composant...");

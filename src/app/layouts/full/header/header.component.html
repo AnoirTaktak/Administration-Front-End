@@ -1,25 +1,4 @@
 <mat-toolbar class="topbar">
-  <!-- Mobile Menu -->
-  @if(!showToggle) {
-  <button
-    mat-mini-fab
-    color="inherit"
-    (click)="toggleMobileNav.emit()"
-    class="d-flex justify-content-center"
-  >
-    <i
-      class="iconify icon-20 d-flex"
-      data-icon="solar:hamburger-menu-line-duotone"
-    ></i>
-  </button>
-  }
-  <!-- --------------------------------------------------------------- -->
-  <!-- Notification Dropdown -->
-  <!-- --------------------------------------------------------------- -->
-
-
-  <span class="flex-1-auto"></span>
-
 
   <!-- --------------------------------------------------------------- -->
   <!-- profile Dropdown -->
@@ -39,33 +18,27 @@
     />
   </button>
   <mat-menu #profilemenu="matMenu" class="topbar-dd cardWithShadow">
-    <button mat-menu-item>
-      <mat-icon class="d-flex align-items-center"
-        ><i
+    <!-- Menu item for profile -->
+    <button mat-menu-item [routerLink]="['/ui-components/Profile']">
+      <mat-icon class="d-flex align-items-center">
+        <i
           data-icon="solar:shield-user-line-duotone"
           class="iconify icon-22"
-        ></i></mat-icon
-      >My Profile
-    </button>
-    <button mat-menu-item>
-      <mat-icon class="d-flex align-items-center"
-        ><i
-          data-icon="solar:user-id-line-duotone"
-          class="iconify icon-22"
-        ></i></mat-icon
-      >My Account
-    </button>
-    <button mat-menu-item>
-      <mat-icon class="d-flex align-items-center"
-        ><i
-          data-icon="solar:checklist-minimalistic-line-duotone"
-          class="iconify icon-22"
-        ></i> </mat-icon
-      >My Task
+        ></i>
+      </mat-icon>
+      Mon profile
     </button>
 
+    <button *ngIf="role === 'SuperAdmin'" mat-menu-item [routerLink]="['/ui-components/gerer-comptes']">
+      <mat-icon class="d-flex align-items-center">
+        <i data-icon="solar:user-id-line-duotone" class="iconify icon-22"></i>
+      </mat-icon>
+      Gérer les comptes
+    </button>
+    
     <div class="p-x-12 m-t-12">
       <a
+        (click)="logout()"
         [routerLink]="['/authentication/login']"
         mat-stroked-button
         color="primary"

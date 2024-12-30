@@ -13,6 +13,10 @@ export class FactureVenteService {
 
   constructor(private http: HttpClient) {}
 
+  getIncomeStats(): Observable<any> {
+    return this.http.get<any>(`${this.urlHote}FactureVente/income-stats`);
+  }
+
   getAllFacturesVente(): Observable<FactureVente[]> {
     return this.http.get<FactureVente[]>(`${this.urlHote}FactureVente`);
   }

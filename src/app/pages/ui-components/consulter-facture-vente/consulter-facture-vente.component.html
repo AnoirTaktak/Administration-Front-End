@@ -5,25 +5,24 @@
       <form class="filter-form">
         <mat-form-field appearance="outline">
           <mat-label>Rechercher par Client</mat-label>
-          <input matInput placeholder="Nom du client" [(ngModel)]="searchClient" name="searchClient">
+          <input matInput placeholder="Nom du client" [(ngModel)]="searchClient" name="searchClient" (input)="applyFilters()">
         </mat-form-field>
 
         <mat-form-field appearance="outline">
           <mat-label>Date de début</mat-label>
-          <input matInput [matDatepicker]="startDate" [(ngModel)]="dateDebut" name="dateDebut">
+          <input matInput [matDatepicker]="startDate" [(ngModel)]="dateDebut" name="dateDebut" (dateChange)="applyFilters()">
           <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
           <mat-datepicker #startDate></mat-datepicker>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
           <mat-label>Date de fin</mat-label>
-          <input matInput [matDatepicker]="endDate" [(ngModel)]="dateFin" name="dateFin">
+          <input matInput [matDatepicker]="endDate" [(ngModel)]="dateFin" name="dateFin" (dateChange)="applyFilters()">
           <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
           <mat-datepicker #endDate></mat-datepicker>
         </mat-form-field>
 
-        <button mat-raised-button color="primary" (click)="applyFilters()">Appliquer les Filtres</button>
-        <button mat-button color="warn" (click)="resetFilters()">Réinitialiser</button>
+
       </form>
     </mat-card-content>
   </mat-card>
@@ -52,9 +51,10 @@
     <ng-container matColumnDef="actions">
       <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
       <mat-cell *matCellDef="let facture">
-        <button mat-icon-button color="primary" (click)="viewFacture(facture)">
+        <button mat-icon-button matTooltip="Afficher" (click)="viewFacture(facture)">
           <mat-icon>visibility</mat-icon>
         </button>
+        
       </mat-cell>
     </ng-container>
 

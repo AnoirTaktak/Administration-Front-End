@@ -3,7 +3,7 @@
     <mat-card-title>Liste des Services</mat-card-title>
 
     <div class="table-responsive">
-      <button mat-menu-item (click)="openAddDialog()">
+      <button *ngIf="authService.canAdd()" mat-menu-item (click)="openAddDialog()">
         <!-- Utilisation de l'icône SVG -->
         <span class="custom-icon">
           <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 48 48">
@@ -75,12 +75,12 @@
                 <mat-icon>more_vert</mat-icon>
               </button>
               <mat-menu #menu="matMenu">
-                <button mat-menu-item (click)="openEditDialog(element)">
+                <button *ngIf="authService.canEdit()" mat-menu-item (click)="openEditDialog(element)">
                   <mat-icon>edit</mat-icon>
                   <span>Modifier</span>
                 </button>
 
-                <button mat-menu-item (click)="deleteService(element.ID_Service)">
+                <button *ngIf="authService.canDelete()" mat-menu-item (click)="deleteService(element.ID_Service)">
                   <mat-icon>delete</mat-icon>
                   <span>Supprimer</span>
                 </button>

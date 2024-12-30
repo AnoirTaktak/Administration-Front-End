@@ -19,6 +19,7 @@ import { Client } from 'src/Models/client';
 import { EditClientComponent } from '../edit-client/edit-client.component';
 import { AddClientComponent } from '../add-client/add-client.component';
 import { forkJoin, tap } from 'rxjs';
+import { LoginService } from 'src/app/services/login/login.service';
 
 @Component({
   selector: 'app-client',
@@ -60,7 +61,7 @@ export class ClientComponent implements OnInit {
   constructor(
     private clientservice: ClientService,
     private snackBar: MatSnackBar,
-    private dialog: MatDialog
+    private dialog: MatDialog,public authService: LoginService
   ) {}
 
   ngOnInit(): void {
@@ -133,7 +134,7 @@ export class ClientComponent implements OnInit {
       });
     }
   }
-  
+
 
 
 

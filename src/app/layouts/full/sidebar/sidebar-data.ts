@@ -58,13 +58,8 @@ export const navItems: NavItem[] = [
     route: '/ui-components/ConsulterFacturesVente',
   },
   {
-    navCap: 'Auth',
+    navCap: 'Connexion',
     divider: true
   },
-  {
-    displayName: 'Login',
-    iconName: 'solar:login-3-line-duotone',
-    route: '/authentication/login',
-  },
- 
+
 ];

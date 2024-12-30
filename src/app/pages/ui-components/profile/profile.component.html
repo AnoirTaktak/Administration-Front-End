@@ -1,0 +1,76 @@
+<mat-card class="cardWithShadow theme-card">
+  <mat-card-header>
+    <mat-card-title class="m-b-0">Détails de l'utilisateur</mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="b-t-1">
+    <div *ngIf="user; else loading">
+      <div class="row">
+        <!-- ID Utilisateur -->
+        <div class="col-lg-6">
+          <mat-label class="f-w-600 m-b-8 d-block">ID Utilisateur</mat-label>
+          <mat-form-field appearance="outline" class="w-100" color="primary">
+            <input matInput [value]="user.ID_Utilisateur" disabled />
+          </mat-form-field>
+        </div>
+
+        <!-- Pseudo -->
+        <div class="col-lg-6">
+          <mat-label class="f-w-600 m-b-8 d-block">Pseudo</mat-label>
+          <mat-form-field appearance="outline" class="w-100" color="primary">
+            <input
+              matInput
+              [(ngModel)]="user.Pseudo"
+              [disabled]="!isEditing"
+            />
+          </mat-form-field>
+        </div>
+
+        <!-- Nom Utilisateur -->
+        <div class="col-lg-6">
+          <mat-label class="f-w-600 m-b-8 d-block">Nom</mat-label>
+          <mat-form-field appearance="outline" class="w-100" color="primary">
+            <input
+              matInput
+              [(ngModel)]="user.Nom_Utilisateur"
+              [disabled]="!isEditing"
+            />
+          </mat-form-field>
+        </div>
+
+        <!-- Email -->
+        <div class="col-lg-6">
+          <mat-label class="f-w-600 m-b-8 d-block">Email</mat-label>
+          <mat-form-field appearance="outline" class="w-100" color="primary">
+            <input
+              matInput
+              [(ngModel)]="user.Email_Utilisateur"
+              [disabled]="!isEditing"
+            />
+          </mat-form-field>
+        </div>
+
+        <!-- Rôle Utilisateur -->
+        <div class="col-lg-6">
+          <mat-label class="f-w-600 m-b-8 d-block">Rôle</mat-label>
+          <mat-form-field appearance="outline" class="w-100" color="primary">
+            <input matInput [value]="getRoleText(user.Role_Utilisateur)" disabled />
+          </mat-form-field>
+        </div>
+      </div>
+
+      <!-- Boutons -->
+      <div class="m-t-16">
+        <button mat-raised-button color="primary" (click)="toggleEdit()">
+          {{ isEditing ? 'Enregistrer' : 'Modifier' }}
+        </button>
+        <button mat-raised-button color="accent" (click)="openPasswordModal()">
+          Modifier le mot de passe
+        </button>
+      </div>
+    </div>
+
+    <ng-template #loading>
+      <p>Chargement des données...</p>
+    </ng-template>
+  </mat-card-content>
+</mat-card>

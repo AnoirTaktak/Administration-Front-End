@@ -1,6 +1,6 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { MaterialModule } from '../../material.module';
-import { AppBlogCardsComponent } from 'src/app/components/blog-card/blog-card.component';
+
 import { AppSalesProfitComponent } from 'src/app/components/sales-profit/sales-profit.component';
 import { AppTotalFollowersComponent } from 'src/app/components/total-followers/total-followers.component';
 import { AppTotalIncomeComponent } from 'src/app/components/total-income/total-income.component';
@@ -12,7 +12,6 @@ import { AppEarningReportsComponent } from 'src/app/components/earning-reports/e
   standalone: true,
   imports: [
     MaterialModule,
-    AppBlogCardsComponent,
     AppSalesProfitComponent,
     AppTotalFollowersComponent,
     AppTotalIncomeComponent,

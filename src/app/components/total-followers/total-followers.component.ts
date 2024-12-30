@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MaterialModule } from '../../material.module';
 import {
     ApexChart,
@@ -17,6 +17,7 @@ import {
 } from 'ng-apexcharts';
 import { MatButtonModule } from '@angular/material/button';
 import { TablerIconsModule } from 'angular-tabler-icons';
+import { FactureAchatService } from 'src/app/services/factureAchat/facture-achat.service';
 
 export interface totalfollowersChart {
     series: ApexAxisChartSeries;
@@ -39,91 +40,63 @@ export interface totalfollowersChart {
     imports: [MaterialModule, NgApexchartsModule, MatButtonModule, TablerIconsModule],
     templateUrl: './total-followers.component.html',
 })
-export class AppTotalFollowersComponent {
-    @ViewChild('chart') chart: ChartComponent = Object.create(null);
-    public totalfollowersChart!: Partial<totalfollowersChart> | any;
+export class AppTotalFollowersComponent implements OnInit {
+  @ViewChild('chart') chart: ChartComponent = Object.create(null);
+  public totalfollowersChart!: Partial<any> | any;
+  public totalAchats: number = 0; // Total des achats
+  public progressionPourcentage: number = 0; // Pourcentage de progression
 
-    constructor() {
-        this.totalfollowersChart = {
+  constructor(private factureAchatService: FactureAchatService) {
+    this.totalfollowersChart = {
+      series: [
+        {
+          name: 'Total',
+          data: [29, 52, 38, 47, 56], // Exemple, sera remplacé
+        },
+        {
+          name: 'Followers',
+          data: [71, 71, 71, 71, 71], // Exemple, sera remplacé
+        },
+      ],
+      chart: {
+        fontFamily: 'inherit',
+        type: 'bar',
+        height: 100,
+        stacked: true,
+        toolbar: { show: false },
+        sparkline: { enabled: true },
+      },
+      grid: { show: false },
+      colors: ['#ff6692', '#e7d0d9'],
+      plotOptions: {
+        bar: {
+          horizontal: false,
+          columnWidth: '30%',
+          borderRadius: [3],
+          borderRadiusApplication: 'end',
+          borderRadiusWhenStacked: 'all',
+        },
+      },
+      dataLabels: { enabled: false },
+      xaxis: { labels: { show: false } },
+      yaxis: { labels: { show: false } },
+      tooltip: { theme: 'dark' },
+      legend: { show: false },
+    };
+  }
 
-            series: [
-                {
-                    name: "Total",
-                    data: [29, 52, 38, 47, 56],
-                },
-                {
-                    name: "Followers",
-                    data: [71, 71, 71, 71, 71],
-                },
-            ],
-            chart: {
-                fontFamily: "inherit",
-                type: "bar",
-                height: 100,
-                stacked: true,
-                toolbar: {
-                    show: false,
-                },
-                sparkline: {
-                    enabled: true,
-                },
-            },
-            grid: {
-                show: false,
-                borderColor: "rgba(0,0,0,0.1)",
-                strokeDashArray: 1,
-                xaxis: {
-                    lines: {
-                        show: false,
-                    },
-                },
-                yaxis: {
-                    lines: {
-                        show: true,
-                    },
-                },
-                padding: {
-                    top: 0,
-                    right: 0,
-                    bottom: 0,
-                    left: 0,
-                },
-            },
-            colors: ["#ff6692", "#e7d0d9"],
-            plotOptions: {
-                bar: {
-                    horizontal: false,
-                    columnWidth: "30%",
-                    borderRadius: [3],
-                    borderRadiusApplication: "end",
-                    borderRadiusWhenStacked: "all",
-                },
-            },
-            dataLabels: {
-                enabled: false,
-            },
-            xaxis: {
-                labels: {
-                    show: false,
-                },
-                axisBorder: {
-                    show: false,
-                },
-                axisTicks: {
-                    show: false,
-                },
-            },
-            yaxis: {
-                labels: {
-                    show: false,
-                },
-            },
-            tooltip: {
-                theme: "dark",
-            },
-            legend: {
-                show: false,
-            },
-        };
-    }
+  ngOnInit() {
+    this.loadTotalAchats();
+  }
+
+  private loadTotalAchats(): void {
+    this.factureAchatService.getIncomeStats().subscribe((data) => {
+      this.totalAchats = data.currentMonthTotal;
+      this.progressionPourcentage = data.progressPercentage;
+
+      // Met à jour le graphique
+      this.totalfollowersChart.series[0].data = [this.totalAchats];
+      this.totalfollowersChart.series[1].data = [this.totalAchats * 0.5]; // Exemple
+    });
+  }
 }

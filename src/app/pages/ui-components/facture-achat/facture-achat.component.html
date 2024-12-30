@@ -1,5 +1,5 @@
 <div class="filters">
-  <button mat-menu-item (click)="openAddDialog()">
+  <button *ngIf="authService.canAdd()" mat-menu-item (click)="openAddDialog()">
     <!-- Utilisation de l'icône SVG -->
     <span class="custom-icon">
       <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 48 48">
@@ -63,10 +63,10 @@
         </div>
       </mat-card-content>
       <mat-card-actions>
-        <button mat-icon-button matTooltip="Modifier" (click)="openEditDialog(facture)">
+        <button *ngIf="authService.canEdit()" mat-icon-button matTooltip="Modifier" (click)="openEditDialog(facture)">
           <mat-icon>edit</mat-icon>
         </button>
-        <button mat-icon-button matTooltip="Supprimer" (click)="deleteFacture(facture.ID_FactureAchat)">
+        <button *ngIf="authService.canDelete()" mat-icon-button matTooltip="Supprimer" (click)="deleteFacture(facture.ID_FactureAchat)">
           <mat-icon>delete</mat-icon>
         </button>
         <button mat-icon-button matTooltip="Afficher" (click)="openFactureModal(facture.ImageFacture)">

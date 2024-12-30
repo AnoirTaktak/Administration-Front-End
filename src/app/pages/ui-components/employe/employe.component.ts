@@ -19,6 +19,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MAT_DATE_LOCALE, MatNativeDateModule, provideNativeDateAdapter } from '@angular/material/core';
 import { AddEmployeComponent } from '../add-employe/add-employe.component';
 import { forkJoin, mergeMapTo, tap } from 'rxjs';
+import { LoginService } from 'src/app/services/login/login.service';
 
 
 
@@ -66,7 +67,7 @@ export class EmployeComponent implements OnInit {
   constructor(
     private employeService: EmployeService,
     private snackBar: MatSnackBar,
-    private dialog: MatDialog
+    private dialog: MatDialog,public authService: LoginService
   ) {}
 
   ngOnInit(): void {

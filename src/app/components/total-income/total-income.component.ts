@@ -1,26 +1,12 @@
 import { Component, ViewChild } from '@angular/core';
-import { MaterialModule } from '../../material.module';
-import {
-    ApexChart,
-    ChartComponent,
-    ApexDataLabels,
-    ApexLegend,
-    ApexStroke,
-    ApexTooltip,
-    ApexAxisChartSeries,
-    ApexPlotOptions,
-    ApexResponsive,
-    ApexGrid,
-    ApexFill,
-    ApexMarkers,
-    ApexXAxis,
-    ApexYAxis,
-    NgApexchartsModule,
-} from 'ng-apexcharts';
+import { ApexAxisChartSeries, ApexChart, ApexDataLabels, ApexFill, ApexGrid, ApexLegend, ApexMarkers, ApexPlotOptions, ApexResponsive, ApexStroke, ApexTooltip, ApexXAxis, ApexYAxis, ChartComponent, NgApexchartsModule } from 'ng-apexcharts';
 import { MatButtonModule } from '@angular/material/button';
 import { TablerIconsModule } from 'angular-tabler-icons';
+import { FactureVenteService } from 'src/app/services/factureVente/facture-vente.service';
+import { MaterialModule } from 'src/app/material.module';
 
-export interface totalincomeChart {
+
+export interface TotalIncomeChart {
     series: ApexAxisChartSeries;
     chart: ApexChart;
     dataLabels: ApexDataLabels;
@@ -45,11 +31,27 @@ export interface totalincomeChart {
 })
 export class AppTotalIncomeComponent {
     @ViewChild('chart') chart: ChartComponent = Object.create(null);
-    public totalincomeChart!: Partial<totalincomeChart> | any;
+    public totalincomeChart!: Partial<TotalIncomeChart> | any;
 
-    constructor() {
+    totalIncome: number = 0;
+    progressPercentage: number = 0;
+
+    constructor(private factureService: FactureVenteService) {
+        this.loadData();
+        this.initChart();
+    }
+
+    // Charger les données depuis le service
+    private loadData(): void {
+        this.factureService.getIncomeStats().subscribe((data: any) => {
+            this.totalIncome = data.currentMonthTotal;
+            this.progressPercentage = data.progressPercentage;
+        });
+    }
+
+    // Initialiser le graphique
+    private initChart(): void {
         this.totalincomeChart = {
-
             chart: {
                 id: "total-income",
                 type: "area",
@@ -65,7 +67,7 @@ export class AppTotalIncomeComponent {
                 {
                     name: "Total Income",
                     color: "#8965E5",
-                    data: [25, 66, 20, 40, 12, 58, 20],
+                    data: [25, 66, 20, 40, 12, 58, 20], // Exemples statiques à remplacer si nécessaire
                 },
             ],
             stroke: {
@@ -82,7 +84,6 @@ export class AppTotalIncomeComponent {
                     stops: [20, 180],
                 },
             },
-
             markers: {
                 size: 0,
             },
@@ -96,7 +97,6 @@ export class AppTotalIncomeComponent {
                     show: false,
                 },
             },
-
         };
     }
 }

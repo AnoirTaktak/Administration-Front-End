@@ -1,0 +1,95 @@
+/* Conteneur général de la page */
+.user-management {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+}
+
+/* Style pour les boutons d'action dans la section des utilisateurs */
+button {
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background-color 0.3s, transform 0.3s;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Effet au survol des boutons */
+button:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  transform: translateY(-2px);
+}
+
+/* Effet lors du clic */
+button:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Style spécifique pour les boutons "Ajouter un Utilisateur" */
+button[mat-raised-button] {
+  background-color: #6200ea;
+  color: white;
+  border: none;
+}
+
+button[mat-raised-button]:hover {
+  background-color: #3700b3;
+}
+
+/* Style pour les boutons d'édition et de suppression dans le tableau */
+button[mat-icon-button] {
+  margin-right: 8px;
+  padding: 8px;
+}
+
+/* Détails spécifiques pour les boutons de suppression et d'édition */
+button[mat-icon-button][color="primary"] {
+  background-color: #6200ea;
+  color: white;
+}
+
+button[mat-icon-button][color="warn"] {
+  background-color: #ff5722;
+  color: white;
+}
+
+/* Cacher les actions lorsque l'utilisateur est désactivé (si nécessaire) */
+button[disabled] {
+  background-color: #bdbdbd;
+  color: #9e9e9e;
+  box-shadow: none;
+}
+
+/* Style de tableau pour l'alignement */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 12px;
+  text-align: left;
+}
+
+th {
+  background-color: #6200ea;
+  color: white;
+}
+
+td {
+  background-color: #f9f9f9;
+}
+
+/* Définir un espacement entre les lignes de tableau */
+.mat-column-Nom_Utilisateur, .mat-column-Role_Utilisateur, .mat-column-actions {
+  padding: 10px;
+}
+
+/* Espacement entre les éléments du tableau */
+.action-buttons {
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-start;
+}

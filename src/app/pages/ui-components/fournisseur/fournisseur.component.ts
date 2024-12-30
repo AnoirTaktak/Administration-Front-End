@@ -19,6 +19,7 @@ import { Fournisseur } from 'src/Models/fournisseur';
 import { EditFournisseurComponent } from '../edit-fournisseur/edit-fournisseur.component';
 import { AddFournisseurComponent } from '../add-fournisseur/add-fournisseur.component';
 import { forkJoin, tap } from 'rxjs';
+import { LoginService } from 'src/app/services/login/login.service';
 
 @Component({
   selector: 'app-fournisseur',
@@ -59,7 +60,7 @@ export class FournisseurComponent implements OnInit {
   constructor(
     private Fournisseurservice: FournisseurService,
     private snackBar: MatSnackBar,
-    private dialog: MatDialog
+    private dialog: MatDialog,public authService: LoginService
   ) {}
 
   ngOnInit(): void {

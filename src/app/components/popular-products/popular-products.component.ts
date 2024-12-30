@@ -46,15 +46,7 @@ const ELEMENT_DATA: productsData[] = [
         status: 'Confirmed',
         progress: 'error',
     },
-    {
-        id: 4,
-        imagePath: 'assets/images/products/s4.jpg',
-        uname: 'Amazon Basics Mesh, Mid-Back, Swivel Office De...',
-        price: '$120',
-        paid: 'Partially paid',
-        status: 'Confirmed',
-        progress: 'accent',
-    },
+   
 ];
 @Component({
     selector: 'app-popular-products',

@@ -26,6 +26,7 @@ import { Societe } from 'src/Models/societe';
 import { Employe } from 'src/Models/employe';
 import { Document } from 'src/Models/document';
 import jsPDF from 'jspdf';
+import { LoginService } from 'src/app/services/login/login.service';
 
 @Component({
   selector: 'app-documents-administratif',
@@ -78,7 +79,7 @@ export class DocumentsAdministratifComponent implements OnInit {
     private documentService: DocumentService,
     private snackBar: MatSnackBar,
     private sanitizer: DomSanitizer,
-    private societeService : SocieteService
+    private societeService : SocieteService,public authService: LoginService
 
   ) {}
 

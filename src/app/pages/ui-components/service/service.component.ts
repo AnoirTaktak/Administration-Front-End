@@ -20,6 +20,7 @@ import { EditServiceComponent } from '../edit-service/edit-service.component';
 import { AddServiceComponent } from '../add-service/add-service.component';
 import { catchError, of, tap } from 'rxjs';
 import { error } from 'console';
+import { LoginService } from 'src/app/services/login/login.service';
 
 @Component({
   selector: 'app-service',
@@ -59,7 +60,7 @@ export class ServiceComponent {
   constructor(
     private Serviceservice: ServiceService,
     private snackBar: MatSnackBar,
-    private dialog: MatDialog
+    private dialog: MatDialog,public authService: LoginService
   ) {}
 
   ngOnInit(): void {
