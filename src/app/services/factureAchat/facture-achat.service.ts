@@ -63,4 +63,8 @@ export class FactureAchatService {
   getIncomeStats(): Observable<any> {
     return this.http.get<any>(`${this.urlHote}FactureAchat/income-stats`);
   }
+
+  getTotalAchatsLastFiveMonths(): Observable<number[]> {
+    return this.http.get<number[]>(`${this.urlHote}FactureAchat/total-achats-last-five-months`);
+  }
 }

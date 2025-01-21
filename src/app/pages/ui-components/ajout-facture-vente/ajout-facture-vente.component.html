@@ -64,9 +64,9 @@
           />
         </td>
 
-        <td>{{ ligne.Total_LigneHT }}</td>
+        <td>{{ ligne.Total_LigneHT | number:'1.3-3' }}</td>
         <td>{{ligne.TVA}}</td>
-        <td>{{ ligne.Total_LigneFV }}</td>
+        <td>{{ ligne.Total_LigneFV | number:'1.3-3'}}</td>
         <td>
           <button class="btn btn-danger" (click)="lignesFacture.splice(i, 1)" (click)="calculerTotalFacture()">
             Supprimer

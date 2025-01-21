@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MaterialModule } from '../../material.module';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
@@ -6,66 +6,51 @@ import { CommonModule } from '@angular/common';
 import { TablerIconsModule } from 'angular-tabler-icons';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { NgScrollbarModule } from 'ngx-scrollbar';
-
+import { LigneFactureService } from 'src/app/services/ligneFacture/ligne-facture.service';
 
 export interface productsData {
-    id: number;
-    imagePath: string;
-    uname: string;
-    price: string;
-    paid: string;
-    status: string;
-    progress: string;
+  id: number;
+  imagePath: string;
+  uname: string;
+  price: string;
+  sold: number;
+  paid: string; // Placeholder for additional data if needed
+  status: string; // Placeholder for additional data if needed
+  progress: string; // Placeholder for additional data if needed
 }
 
-const ELEMENT_DATA: productsData[] = [
-    {
-        id: 1,
-        imagePath: 'assets/images/products/s1.jpg',
-        uname: 'iPhone 13 pro max-Pacific Blue-128GB storage',
-        price: '$180',
-        paid: 'Partially paid',
-        status: 'Confirmed',
-        progress: 'accent',
-    },
-    {
-        id: 2,
-        imagePath: 'assets/images/products/s2.jpg',
-        uname: 'Apple MacBook Pro 13 inch-M1-8/256GB-space',
-        price: '$120',
-        paid: 'Full paid',
-        status: 'Confirmed',
-        progress: 'success',
-    },
-    {
-        id: 3,
-        imagePath: 'assets/images/products/s3.jpg',
-        uname: 'PlayStation 5 DualSense Wireless Controller',
-        price: '$120',
-        paid: 'Cancelled',
-        status: 'Confirmed',
-        progress: 'error',
-    },
-   
-];
 @Component({
-    selector: 'app-popular-products',
-    standalone: true,
-    imports: [
-        MaterialModule,
-        MatMenuModule,
-        MatButtonModule,
-        CommonModule,
-        TablerIconsModule,
-        MatProgressBarModule,
-        NgScrollbarModule
-    ],
-    templateUrl: './popular-products.component.html',
+  selector: 'app-popular-products',
+  standalone: true,
+  imports: [
+    MaterialModule,
+    MatMenuModule,
+    MatButtonModule,
+    CommonModule,
+    TablerIconsModule,
+    MatProgressBarModule,
+    NgScrollbarModule,
+  ],
+  templateUrl: './popular-products.component.html',
 })
-export class AppPopularProductsComponent {
+export class AppPopularProductsComponent implements OnInit {
+  displayedColumns: string[] = ['products', 'payment', 'sold','menu'];
+  dataSource: productsData[] = [];
 
-    displayedColumns: string[] = ['products', 'payment', 'status', 'menu'];
-    dataSource = ELEMENT_DATA;
+  constructor(private ligneFactureService: LigneFactureService) {}
 
-    constructor() { }
+  ngOnInit(): void {
+    this.ligneFactureService.getTopServices().subscribe((data) => {
+      this.dataSource = data.map((item, index) => ({
+        id: index + 1,
+        imagePath: '', // You can set a default or dynamic image path if needed
+        uname: item.ServiceName,
+        price: `${item.Price.toFixed(2)}`,
+        sold: item.TotalSold,
+        paid: 'Full paid', // Example placeholder
+        status: 'Confirmed', // Example placeholder
+        progress: 'success', // Example placeholder
+      }));
+    });
+  }
 }

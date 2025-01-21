@@ -18,8 +18,10 @@ import { FournisseurService } from 'src/app/services/fournisseur/fournisseur.ser
 import { Fournisseur } from 'src/Models/fournisseur';
 import { EditFournisseurComponent } from '../edit-fournisseur/edit-fournisseur.component';
 import { AddFournisseurComponent } from '../add-fournisseur/add-fournisseur.component';
-import { forkJoin, tap } from 'rxjs';
+import { forkJoin, mergeMap, tap } from 'rxjs';
 import { LoginService } from 'src/app/services/login/login.service';
+import { FactureAchatService } from 'src/app/services/factureAchat/facture-achat.service';
+import { FactureAchat } from 'src/Models/factureAchat';
 
 @Component({
   selector: 'app-fournisseur',
@@ -56,15 +58,21 @@ export class FournisseurComponent implements OnInit {
   searchMF: string = '';
   searchRS: string = '';
   searchTC: string = '';
+  factures: FactureAchat[] = []; // Liste des factures
+  copiefactures: FactureAchat[] = []; // Liste des factures
+  filteredFactures: FactureAchat[] = []; // Liste filtrée
+  existingfours: any[] = [];
 
   constructor(
     private Fournisseurservice: FournisseurService,
+    private factureAchatService : FactureAchatService,
     private snackBar: MatSnackBar,
     private dialog: MatDialog,public authService: LoginService
   ) {}
 
   ngOnInit(): void {
     this.consulterFournisseurs();
+    this.consulterFactures();
     console.log(this.Fournisseurs)
   }
 
@@ -81,6 +89,38 @@ export class FournisseurComponent implements OnInit {
       },
     });
   }
+
+consulterFactures(): void {
+    this.factureAchatService.getAllFacturesAchat().pipe(
+      mergeMap(factures => {
+        this.factures = factures;
+        console.log('Factures récupérées:', factures); // Vérification des factures récupérées
+        const fournisseurRequests = factures.map(f =>
+          this.Fournisseurservice.getFournisseurById(f.ID_Fournisseur).pipe(
+            tap(data => {
+              f.RaisonSocialeFournisseur = data.RaisonSociale_Fournisseur;
+              console.log('Fournisseur récupéré:', data); // Vérification des fournisseurs récupérés
+            })
+          )
+        );
+        return forkJoin(fournisseurRequests);
+      })
+    ).subscribe({
+      next: () => {
+        // Vérifiez après la récupération de toutes les données
+        console.log('Factures après traitement:', this.factures);
+        this.filteredFactures = [...this.factures];
+        this.copiefactures = this.factures; // Copie des factures
+        this.existingfours = this.copiefactures.map(e => e.ID_Fournisseur);
+        console.log(this.existingfours)
+      },
+      error: err => {
+        this.snackBar.open('Erreur lors de la récupération des factures.', 'Fermer', { duration: 3000 });
+        console.error(err);
+      }
+    });
+  }
+
 
   openEditDialog(Fournisseur: Fournisseur): void {
 
@@ -118,6 +158,8 @@ export class FournisseurComponent implements OnInit {
   }
 
   deleteFournisseur(id: number): void {
+    if(this.existingfours.includes(id)) {this.snackBar.open('Vous pouvez pas supprimer un fournisseur à deja des factures achats', 'Fermer', { duration: 3000 });}
+    else {
     console.log(id)
     if (confirm('Voulez-vous vraiment supprimer ce Fournisseur ?')) {
       this.Fournisseurservice.deleteFournisseur(id).subscribe({
@@ -132,6 +174,7 @@ export class FournisseurComponent implements OnInit {
         },
       });
     }
+  }
   }
 
 

@@ -62,11 +62,7 @@
         <div class="col-lg-6">
           <mat-label class="f-w-600 m-b-8 d-block">fichier de la facture</mat-label>
 
-          <input class="form-control form-control-lg" type="file" (change)="onFileSelected($event)" accept="image/*" />
-        </div>
-        <div class="col-lg-6" >
-          <mat-label class="f-w-600 m-b-8 d-block">Voir l'image de la facture</mat-label>
-          <button mat-button color="primary" (click)="openFactureModal()">Afficher la facture</button>
+          <input class="form-control form-control-lg"  type="file" (change)="onFileSelected($event)" accept="image/*" />
         </div>
       </div>
       <div class="row mt-3">

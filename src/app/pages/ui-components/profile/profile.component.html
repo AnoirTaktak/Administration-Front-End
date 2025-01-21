@@ -1,13 +1,13 @@
 <mat-card class="cardWithShadow theme-card">
   <mat-card-header>
-    <mat-card-title class="m-b-0">Détails de l'utilisateur</mat-card-title>
+    <mat-card-title class="m-b-0">Mes données</mat-card-title>
   </mat-card-header>
   <mat-card-content class="b-t-1">
     <div *ngIf="user; else loading">
       <div class="row">
         <!-- ID Utilisateur -->
         <div class="col-lg-6">
-          <mat-label class="f-w-600 m-b-8 d-block">ID Utilisateur</mat-label>
+          <mat-label class="f-w-600 m-b-8 d-block">Mon Code utilisateur :</mat-label>
           <mat-form-field appearance="outline" class="w-100" color="primary">
             <input matInput [value]="user.ID_Utilisateur" disabled />
           </mat-form-field>
@@ -15,43 +15,60 @@
 
         <!-- Pseudo -->
         <div class="col-lg-6">
-          <mat-label class="f-w-600 m-b-8 d-block">Pseudo</mat-label>
+          <mat-label class="f-w-600 m-b-8 d-block">Mon Pseudo :</mat-label>
           <mat-form-field appearance="outline" class="w-100" color="primary">
             <input
               matInput
               [(ngModel)]="user.Pseudo"
+              [required]="true"
+              placeholder="Pseudo"
               [disabled]="!isEditing"
+              (ngModelChange)="validateUniqueFields()"
             />
+
           </mat-form-field>
+          <mat-error *ngIf="pseudoError && isEditing">Ce pseudo est déjà utilisé.</mat-error>
+          <mat-error *ngIf="!user.Pseudo && isEditing">Le pseudo est obligatoire.</mat-error>
+
         </div>
 
         <!-- Nom Utilisateur -->
         <div class="col-lg-6">
-          <mat-label class="f-w-600 m-b-8 d-block">Nom</mat-label>
+          <mat-label class="f-w-600 m-b-8 d-block">Mon Nom Complet :</mat-label>
           <mat-form-field appearance="outline" class="w-100" color="primary">
             <input
               matInput
               [(ngModel)]="user.Nom_Utilisateur"
+              [required]="true"
               [disabled]="!isEditing"
+              (ngModelChange)="validateUniqueFields()"
             />
+
           </mat-form-field>
+          <mat-error *ngIf="nomError">Ce nom est déjà utilisé.</mat-error>
+            <mat-error *ngIf="!user.Nom_Utilisateur && isEditing">Le nom est obligatoire.</mat-error>
         </div>
 
         <!-- Email -->
         <div class="col-lg-6">
-          <mat-label class="f-w-600 m-b-8 d-block">Email</mat-label>
+          <mat-label class="f-w-600 m-b-8 d-block">Mon Email :</mat-label>
           <mat-form-field appearance="outline" class="w-100" color="primary">
             <input
               matInput
               [(ngModel)]="user.Email_Utilisateur"
+              [required]="true"
               [disabled]="!isEditing"
+              (ngModelChange)="validateUniqueFields()"
             />
+
           </mat-form-field>
+          <mat-error *ngIf="emailError">Cet email est déjà utilisé.</mat-error>
+            <mat-error *ngIf="!user.Email_Utilisateur && isEditing">L'email est obligatoire.</mat-error>
         </div>
 
         <!-- Rôle Utilisateur -->
         <div class="col-lg-6">
-          <mat-label class="f-w-600 m-b-8 d-block">Rôle</mat-label>
+          <mat-label class="f-w-600 m-b-8 d-block">Mon Rôle :</mat-label>
           <mat-form-field appearance="outline" class="w-100" color="primary">
             <input matInput [value]="getRoleText(user.Role_Utilisateur)" disabled />
           </mat-form-field>
@@ -60,8 +77,8 @@
 
       <!-- Boutons -->
       <div class="m-t-16">
-        <button mat-raised-button color="primary" (click)="toggleEdit()">
-          {{ isEditing ? 'Enregistrer' : 'Modifier' }}
+        <button mat-raised-button color="primary" (click)="toggleEdit()" [disabled]="!canSave()">
+          {{ isEditing ? 'Enregistrer' : 'Modifier les données' }}
         </button>
         <button mat-raised-button color="accent" (click)="openPasswordModal()">
           Modifier le mot de passe

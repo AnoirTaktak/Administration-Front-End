@@ -90,10 +90,14 @@ export class GererComptesComponent implements OnInit {
 
   // Supprimer un utilisateur
   onDelete(utilisateur: Utilisateur): void {
-    this.utilisateurService.deleteUtilisateur(utilisateur).subscribe(() => {
-      this.loadUtilisateurs();
-      this.snackBar.open('Utilisateur supprimé avec succès.', 'Fermer', { duration: 3000 });
-    });
+
+
+    if (confirm('Voulez-vous vraiment supprimer cet employé ?')) {
+      this.utilisateurService.deleteUtilisateur(utilisateur).subscribe(() => {
+        this.loadUtilisateurs();
+        this.snackBar.open('Utilisateur supprimé avec succès.', 'Fermer', { duration: 3000 });
+      });
+    }
   }
 
   // Fonction pour convertir le rôle en chaîne lisible

@@ -79,6 +79,7 @@ export class PasswordModalComponent {
     this.data.user.MotDePasse_Utilisateur = this.newPassword;
     this.userService.updateUtilisateur(this.data.user).subscribe(
       () => {
+        localStorage.setItem('mdp',this.newPassword)
         this.dialogRef.close(true);
       },
       () => {

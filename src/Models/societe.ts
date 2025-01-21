@@ -5,7 +5,7 @@ export class Societe {
   Adresse_Societe: string;
   Tel_Societe: string;
   CodePostal: string;
-  CachetSignature: Uint8Array;
+  CachetSignature: Uint8Array | null;
   Email_Societe: string;
 
   constructor(

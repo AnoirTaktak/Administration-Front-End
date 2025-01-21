@@ -48,6 +48,7 @@
           formControlName="Email_Utilisateur"
           [ngClass]="{ 'is-invalid': isFieldInvalid('Email_Utilisateur') }"
         />
+        <div class="invalid-feedback">Veuillez entrer une adresse email valide.</div>
         <div class="invalid-feedback" *ngIf="addUtilisateurForm.get('Email_Utilisateur')?.errors?.['required']">
           L'email est requis.
         </div>

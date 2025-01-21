@@ -1,18 +1,19 @@
 .facture-container {
   font-family: Arial, sans-serif;
-  max-width: max-content;
-  margin: auto;
+  max-width: 800px; /* Fixe une largeur maximale pour une meilleure lisibilité */
+  margin: 30px auto; /* Centre la facture avec un espace suffisant autour */
   padding: 20px;
-  border: 1px solid #ddd;
-  background: #f9f9f9;
-
+  border: 1px solid #ccc; /* Bordure légèrement plus sombre pour contraste */
+  border-radius: 10px; /* Coins arrondis pour une finition moderne */
+  background: #fff; /* Fond blanc pour un aspect propre */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ajoute une ombre subtile */
 }
 
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 30px; /* Augmente l'espace sous l'en-tête */
 }
 
 .logo-section {
@@ -21,24 +22,33 @@
 }
 
 .logo {
-  height: 80px;
+  height: 100px; /* Agrandit le logo pour une meilleure visibilité */
   margin-right: 20px;
 }
 
 .societe-info h2 {
   margin: 0;
-  font-size: 1.5em;
+  font-size: 1.8em; /* Augmente légèrement la taille de la police */
   color: #333;
+}
+
+.societe-info p {
+  margin: 0;
+  color: #555; /* Couleur grise pour les détails secondaires */
+  font-size: 0.9em; /* Taille de texte plus petite pour les informations secondaires */
 }
 
 .facture-details {
   text-align: right;
+  font-size: 0.9em; /* Ajuste la taille pour s'aligner avec l'ensemble */
 }
 
 .facture-info-box {
   border: 1px solid #ddd;
-  padding: 10px;
-  background: #fff;
+  padding: 15px; /* Augmente légèrement le padding */
+  background: #f9f9f9; /* Couleur légèrement différente pour distinction */
+  margin-top: 20px;
+  border-radius: 5px; /* Coins arrondis */
 }
 
 .lignes-facture table {
@@ -49,57 +59,73 @@
 
 .lignes-facture th, .lignes-facture td {
   border: 1px solid #ddd;
-  padding: 8px;
+  padding: 12px; /* Ajoute plus d'espace interne */
   text-align: center;
+  font-size: 0.9em; /* Texte légèrement réduit pour un tableau compact */
 }
 
 .lignes-facture th {
   background: #f0f0f0;
   font-weight: bold;
+  color: #333; /* Couleur plus sombre pour l'en-tête */
+}
+
+.lignes-facture tr:nth-child(even) {
+  background: #f9f9f9; /* Ajoute une alternance de couleur pour les lignes */
 }
 
 .totaux-section {
-  margin-top: 20px;
+  margin-top: 30px; /* Plus d'espace avant la section des totaux */
   text-align: right;
+  font-size: 1em;
 }
 
 .totaux-box {
   border: 1px solid #ddd;
-  padding: 10px;
+  padding: 15px; /* Plus d'espace interne pour les totaux */
   background: #fff;
   display: inline-block;
+  border-radius: 5px; /* Coins arrondis pour un style cohérent */
+  font-size: 1.1em; /* Texte légèrement agrandi */
+  font-weight: bold; /* Texte en gras pour attirer l'attention */
 }
 
 .montant-lettres {
   margin-top: 10px;
   font-style: italic;
+  color: #555; /* Couleur grise pour mettre en avant le texte */
+  font-size: 0.9em;
 }
 
 .footer {
   text-align: center;
-  font-size: 0.8em;
-  color: #555;
-  margin-top: 20px;
+  font-size: 0.85em; /* Réduit légèrement la taille du texte */
+  color: #666; /* Couleur gris foncé pour contraste subtil */
+  margin-top: 30px; /* Ajoute plus d'espace au-dessus de la section */
   border-top: 1px solid #ddd;
-  padding-top: 10px;
+  padding-top: 15px; /* Espace interne pour séparer le contenu */
 }
+
 @media print {
   button {
-    display: none; /* Cache tous les boutons */
+    display: none; /* Cache tous les boutons lors de l'impression */
   }
 
-  /* Si vous voulez cibler uniquement ce bouton spécifique */
-  .facture-container ~ button {
-    display: none;
-  }
-
-  /* Optionnel : Optimiser l'affichage à l'impression */
   body {
     margin: 0;
     padding: 0;
   }
 
   .facture-container {
-    width: 100%;
+    width: 100%; /* S'assure que la facture utilise toute la largeur de la page */
+    box-shadow: none; /* Supprime les ombres pour l'impression */
+    border: none; /* Supprime les bordures pour l'impression */
   }
+
+  .total-en-lettres {
+    font-style: italic;
+    color: #555;
+    margin-top: 5px;
+  }
+
 }

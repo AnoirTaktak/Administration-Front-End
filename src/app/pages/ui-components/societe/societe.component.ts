@@ -61,6 +61,7 @@ export class SocieteComponent implements OnInit {
             console.log("Données de la société récupérées:", this.societe);
             console.log("Données de la société copié:", this.societeOriginal);
 
+
         },
         error: (err) => {
             console.log("Erreur lors de la récupération des données de la société", err);
@@ -90,50 +91,28 @@ export class SocieteComponent implements OnInit {
 
 
   updateSociete1() {
-    console.log("l'appel",this.societe)
+    console.log("l'appel", this.societe);
     console.log("Fichier sélectionné : ", this.file);
-    if(this.file){
-      this.societeService.updateSociete(this.societe.ID_Societe,this.societe,this.file)
-      .subscribe({
-        next: (response) => {
-          this.snackBar.open('Modification enregistrée avec succès', 'Fermer', {
-            duration: 3000
-          });
-          console.log("Société mise à jour avec succès:", response);
-        },
-        error: (err: HttpErrorResponse) => {
-          console.error("Erreur lors de la mise à jour de la société", err);
-          if (err.error && err.error.errors) {
-            console.log("Détails des erreurs de validation:", err.error.errors);
-          }
-        }
-      });
-    }
-    const byteArray = new Uint8Array(this.societeOriginal.CachetSignature);
 
-// Créer un Blob à partir du tableau d'octets
-    const blob = new Blob([byteArray], { type: 'image/jpeg' }); // Spécifiez le type MIME approprié
+    // Si une nouvelle image est sélectionnée, envoyer cette image
 
-// Créer un fichier à partir du Blob
-    const file = new File([blob], "CachetSignature.jpg", { type: 'image/jpeg' });
-    this.societeService.updateSociete(this.societe.ID_Societe,this.societe,file)
-      .subscribe({
-        next: (response) => {
-          console.log("Société mise à jour avec succès:", response);
-          this.snackBar.open('Modification enregistrée avec succès', 'Fermer', {
-            duration: 3000
-          });
-        },
-        error: (err: HttpErrorResponse) => {
-          console.error("Erreur lors de la mise à jour de la société", err);
-          if (err.error && err.error.errors) {
-            console.log("Détails des erreurs de validation:", err.error.errors);
+      this.societeService.updateSociete(this.societe.ID_Societe, this.societe, this.file)
+        .subscribe({
+          next: (response) => {
+            this.snackBar.open('Modification enregistrée avec succès', 'Fermer', {
+              duration: 3000
+            });
+            console.log("Société mise à jour avec succès:", response);
+          },
+          error: (err: HttpErrorResponse) => {
+            console.error("Erreur lors de la mise à jour de la société", err);
+            if (err.error && err.error.errors) {
+              console.log("Détails des erreurs de validation:", err.error.errors);
+            }
           }
-        }
-      });
+        });
 
   }
-
 
   cancelChanges(): void {
         console.log("Données de la société lors de l'annulation des changements:", this.societe);

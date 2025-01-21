@@ -56,10 +56,11 @@ export class FactureAchatComponent {
   displayedColumns: string[] = ['numero', 'date', 'fournisseur', 'montant', 'actions'];
   factures: FactureAchat[] = []; // Liste des factures
   copiefactures: FactureAchat[] = []; // Liste des factures
+  filteredFactures: FactureAchat[] = []; // Liste filtrée
   facturesFournisseur: FactureAchat[] = [];
   facturesEtatPaiement: FactureAchat[] = [];
   facturesDateRange: FactureAchat[] = [];
-  filteredFactures: FactureAchat[] = []; // Liste filtrée
+
   searchEtatPaiement: boolean   ;
   searchFournisseur : string;
   dateDebut :string;

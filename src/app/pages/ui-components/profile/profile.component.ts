@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCard, MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialog } from '@angular/material/dialog';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatError, MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
@@ -27,7 +27,8 @@ import { PasswordModalComponent } from '../password-modal/password-modal.compone
       MatCardModule,
       MatInputModule,
       MatCheckboxModule,
-      MatSnackBarModule],
+      MatSnackBarModule,MatError
+    ],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss'
 })
@@ -36,9 +37,12 @@ export class ProfileComponent implements OnInit {
   user: Utilisateur | null = null; // Pour stocker les données de l'utilisateur
   userId: number | null = null; // ID de l'utilisateur (récupéré depuis le localStorage)
   isEditing: boolean = false;
+  allUsers: Utilisateur[] = [];
+  pseudoError: boolean = false;
+  emailError: boolean = false;
+  nomError: boolean = false;
 
-
-  constructor(private utilisateurService: UtilisateurService, private dialog: MatDialog) {}
+  constructor(private utilisateurService: UtilisateurService, private dialog: MatDialog, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     // Récupérer l'ID de l'utilisateur depuis le localStorage
@@ -47,6 +51,39 @@ export class ProfileComponent implements OnInit {
       this.userId = parseInt(storedUserId, 10); // Convertir l'ID en nombre
       this.getUserProfile(this.userId); // Appeler la fonction pour récupérer les données utilisateur
     }
+    this.getAllUtilisateurs();
+  }
+
+  getAllUtilisateurs(): void {
+    this.utilisateurService.getAllUtilisateurs().subscribe(
+      (users: Utilisateur[]) => {
+        // Exclure l'utilisateur actuel
+        this.allUsers = users.filter((u) => u.ID_Utilisateur !== this.userId);
+      },
+      (error) => {
+        console.error('Erreur lors de la récupération des utilisateurs', error);
+      }
+    );
+  }
+
+  validateUniqueFields(): void {
+    if (!this.user) return;
+
+    const pseudoTrimmed = this.user.Pseudo?.trim().toLowerCase();
+    const emailTrimmed = this.user.Email_Utilisateur?.trim().toLowerCase();
+    const nomTrimmed = this.user.Nom_Utilisateur?.trim().toLowerCase();
+
+    // Validation des erreurs
+    this.pseudoError = pseudoTrimmed!=null && this.allUsers.some((u) => u.Pseudo.trim().toLowerCase() === pseudoTrimmed);
+    this.emailError = emailTrimmed!=null && this.allUsers.some((u) => u.Email_Utilisateur.trim().toLowerCase() === emailTrimmed);
+    this.nomError = nomTrimmed!=null && this.allUsers.some((u) => u.Nom_Utilisateur.trim().toLowerCase() === nomTrimmed);
+
+    console.log('Pseudo Error:', this.pseudoError); // Debugging
+    console.log('Email Error:', this.emailError);  // Debugging
+    console.log('Nom Error:', this.nomError);      // Debugging
+
+    // Forcer la mise à jour de l'affichage après modification des erreurs
+    this.cdr.detectChanges();
   }
 
   toggleEdit() {
@@ -64,6 +101,18 @@ export class ProfileComponent implements OnInit {
       // Activer l'édition
       this.isEditing = true;
     }
+  }
+
+  canSave(): boolean {
+    // Bouton désactivé si champs vides ou erreurs d'unicité
+    return (
+      !!this.user?.Pseudo &&
+      !!this.user?.Email_Utilisateur &&
+      !!this.user?.Nom_Utilisateur &&
+      !this.pseudoError &&
+      !this.emailError &&
+      !this.nomError
+    );
   }
 
   // Fonction pour récupérer les détails de l'utilisateur par ID

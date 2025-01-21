@@ -1,5 +1,5 @@
 <div class="container mt-4">
-  <h3 class="text-center">Ajouté Employé</h3>
+  <h3 class="text-center">Ajouter employé</h3>
   <form [formGroup]="addEmployeForm" (ngSubmit)="save()">
     <div class="row">
       <!-- Nom -->
@@ -163,6 +163,7 @@
 
       </div>
 
+      <!-- Boutons -->
       <!-- Boutons -->
       <div class="d-flex justify-content-end mt-4">
         <button type="submit" class="btn btn-primary me-2" [disabled]="addEmployeForm.invalid">

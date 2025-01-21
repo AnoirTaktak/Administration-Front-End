@@ -10,7 +10,7 @@
     </div>
     <div class="facture-details">
       <h3>Facture N° {{ factureData?.NumeroFacture }}</h3>
-      <p>Date : {{ factureData?.DateFacture }}</p>
+      <p>Date : {{ factureData?.DateFacture | date: 'dd/MM/yyyy' }}</p>
       <p>Client : {{ factureData?.Client?.RS_Client }}</p>
       <p>MF : {{ factureData?.Client?.MF_Client }}</p>
     </div>
@@ -32,9 +32,9 @@
         <tr *ngFor="let ligne of factureData?.LignesFacture">
           <td>{{ ligne.Designation_Service }}</td>
           <td>{{ ligne.Quantite }}</td>
-          <td>{{ ligne.Total_LigneHT }}</td>
+          <td>{{ ligne.Total_LigneHT | number:'1.3-3' }}</td>
           <td>{{ ligne.TVA_Service }}</td>
-          <td>{{ ligne.Total_LigneFV }}</td>
+          <td>{{ ligne.Total_LigneFV | number:'1.3-3'}}</td>
         </tr>
       </tbody>
     </table>
@@ -43,9 +43,10 @@
   <!-- Totaux -->
   <div class="totaux-section">
     <p>Remise : {{ factureData?.Remise || '0.00' }}</p>
-    <p>Total HT : {{ factureData?.Total_FactureVenteHT || '0.00' }}</p>
+    <p>Total HT : {{ factureData?.Total_FactureVenteHT | number:'1.3-3' }}</p>
     <p>Timbre Fiscal : {{ factureData?.TimbreFiscale || '0.00' }}</p>
-    <h3>Total TTC : {{ factureData?.Total_FactureVente }}</h3>
+    <h3>Total TTC : {{ factureData?.Total_FactureVente | number:'1.3-3' }}</h3>
+    <p class="total-en-lettres">En toutes lettres : {{ totalTTCEnLettres }}</p>
   </div>
 
   <!-- Footer -->

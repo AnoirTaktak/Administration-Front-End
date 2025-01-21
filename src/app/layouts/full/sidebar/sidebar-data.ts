@@ -2,31 +2,26 @@ import { NavItem } from './nav-item/nav-item';
 
 export const navItems: NavItem[] = [
   {
-    navCap: 'Home',
+    navCap: 'Accueil',
   },
   {
     navCap: '',
     divider: true
   },
   {
-    displayName: 'Dashboard',
+    displayName: 'Tableau de bord',
     iconName: 'solar:widget-add-line-duotone',
     route: '/dashboard',
   },
   {
-    displayName: 'Paramétres Societe',
+    displayName: 'Paramètres Societe',
     iconName: 'icon-park:setting',
     route: '/ui-components/Societe',
   },
   {
-    displayName: 'Notre Employes',
+    displayName: 'Employes',
     iconName: 'icon-park:people',
     route: '/ui-components/Employe',
-  },
-  {
-    displayName: 'Générer Documents',
-    iconName: 'icon-park:doc-add',
-    route: '/ui-components/Documents',
   },
   {
     displayName: 'Clients',
@@ -43,19 +38,27 @@ export const navItems: NavItem[] = [
     iconName: 'icon-park:health-products',
     route: '/ui-components/Services',
   },
+
+
   {
     displayName: 'Factures Achat',
     iconName: 'icon-park:buy',
     route: '/ui-components/FacturesAchat',
   },
   {
+    displayName: 'Factures de Ventes',
+    iconName: 'icon-park:preview-open',
+    route: '/ui-components/ConsulterFacturesVente',
+  },
+  {
     displayName: 'Ajouter Factures Vente',
     iconName: 'icon-park:rss',
     route: '/ui-components/AjoutFacturesVente',
-  },{
-    displayName: 'Consulter Factures Vente',
-    iconName: 'icon-park:preview-open',
-    route: '/ui-components/ConsulterFacturesVente',
+  },
+  {
+    displayName: 'Générer Documents',
+    iconName: 'icon-park:doc-add',
+    route: '/ui-components/Documents',
   },
   {
     navCap: 'Connexion',

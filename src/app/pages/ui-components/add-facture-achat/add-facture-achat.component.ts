@@ -106,15 +106,13 @@ export class AddFactureAchatComponent implements OnInit {
   }
 
   openFactureModal(): void {
-    if (this.selectedFile) {
+      const file = this.selectedFile
       this.dialog.open(ViewImageDialogComponent, {
-        data: { file: this.selectedFile },  // Passer la chaîne base64
+        data: { file },  // Passer la chaîne base64
         width: '80%',
         height: '80%'
       });
-    } else {
-      this.snackBar.open('Aucun fichier sélectionné.', 'Fermer', { duration: 3000 });
-    }
+
   }
 
 

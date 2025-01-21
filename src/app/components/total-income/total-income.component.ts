@@ -39,6 +39,7 @@ export class AppTotalIncomeComponent {
     constructor(private factureService: FactureVenteService) {
         this.loadData();
         this.initChart();
+        this.loadFactureVenteSeries()
     }
 
     // Charger les données depuis le service
@@ -47,6 +48,11 @@ export class AppTotalIncomeComponent {
             this.totalIncome = data.currentMonthTotal;
             this.progressPercentage = data.progressPercentage;
         });
+    }
+    private loadFactureVenteSeries(): void {
+      this.factureService.getFactureVenteSeries().subscribe((data: number[]) => {
+        this.totalincomeChart.series[0].data = data;
+      });
     }
 
     // Initialiser le graphique
@@ -90,7 +96,7 @@ export class AppTotalIncomeComponent {
             tooltip: {
                 theme: "dark",
                 fixed: {
-                    enabled: true,
+                    enabled: false,
                     position: "right",
                 },
                 x: {

@@ -65,8 +65,9 @@ export class AjoutFactureVenteComponent implements OnInit {
     }
     const tauxTVA = service.TVA / 100; // Convertir TVA en décimal (ex: 20% => 0.2)
 
-    const totalLigneHT = service.PrixHT * quantite; // Calcul du montant hors taxe
-    const totalLigneTTC = totalLigneHT * (1 + tauxTVA); // Calcul TTC (HT + TVA)
+    const totalLigneHT = parseFloat((service.PrixHT * quantite).toFixed(3)); // Calcul du montant hors taxe
+    const totalLigneTTC =  parseFloat((service.PrixTTC * quantite).toFixed(3)); // Calcul TTC (HT + TVA)
+    console.log(totalLigneTTC)
 
     const ligne = {
       ID_Service: service.ID_Service,
@@ -75,9 +76,10 @@ export class AjoutFactureVenteComponent implements OnInit {
       prixUTTC : service.PrixTTC,
       TVA: service.TVA,
       Quantite: quantite,
-      Total_LigneHT: parseFloat(totalLigneHT.toFixed(3)), 
+      Total_LigneHT: parseFloat(totalLigneHT.toFixed(3)),
       Total_LigneFV: parseFloat(totalLigneTTC.toFixed(3)),
     };
+    console.log(ligne)
     const exist = this.lignesFacture.map(l=> l.ID_Service == ligne.ID_Service);
     console.log(exist.includes(true))
     if(exist.includes(true)){
@@ -132,6 +134,7 @@ export class AjoutFactureVenteComponent implements OnInit {
   }
 
   enregistrerFacture(): void {
+    console.log(this.lignesFacture)
     if (!this.clientSelectionne) {
       alert('Veuillez sélectionner un client.');
       return;
@@ -146,7 +149,7 @@ export class AjoutFactureVenteComponent implements OnInit {
       Client: this.clientSelectionne,
       LignesFacture: this.lignesFacture,
     };
-
+    console.log(facture)
     this.factureService.createFacture(facture).subscribe(
       (response) => {
         console.log('Facture enregistrée', response);
@@ -171,4 +174,6 @@ export class AjoutFactureVenteComponent implements OnInit {
   openDialog():void {
 
   }
+
+  
 }

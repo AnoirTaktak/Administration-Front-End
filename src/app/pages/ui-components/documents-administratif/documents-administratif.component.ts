@@ -23,7 +23,7 @@ import { DocumentService } from 'src/app/services/document/document.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { SocieteService } from 'src/app/services/societe/societe.service';
 import { Societe } from 'src/Models/societe';
-import { Employe } from 'src/Models/employe';
+import { Employe, TypeContrat } from 'src/Models/employe';
 import { Document } from 'src/Models/document';
 import jsPDF from 'jspdf';
 import { LoginService } from 'src/app/services/login/login.service';
@@ -90,8 +90,6 @@ export class DocumentsAdministratifComponent implements OnInit {
 
     this.consulterSociete();
 
-
-
   }
 
   /**
@@ -124,6 +122,8 @@ export class DocumentsAdministratifComponent implements OnInit {
     });
     console.log("Données de Employes récupérées:", this.employes);
   }
+
+
   consulterSociete(): void {
     console.log("Récupérer les paramètres de la société");
     this.societeService.getSocietes().subscribe({
@@ -250,6 +250,7 @@ export class DocumentsAdministratifComponent implements OnInit {
 
   selectDocument(type: any): void {
     this.selectedDocumentType = type;
+    this.filterEmployesByContract(type); // Filtrer les employés par contrat
   }
 
   setStep(index: number) {
@@ -267,5 +268,23 @@ export class DocumentsAdministratifComponent implements OnInit {
   showError(message: string): void {
     this.snackBar.open(message, 'Fermer', { duration: 3000 });
   }
+
+  filterEmployesByContract(typeDocument: TypeDocument): void {
+    if (typeDocument.NomType.toLowerCase().includes('stage')) {
+      this.employes = this.employes.filter(e => e.TypeContrat === TypeContrat.Stage);
+    } else if (typeDocument.NomType.toLowerCase().includes('civp')) {
+      this.employes = this.employes.filter(e => e.TypeContrat === TypeContrat.Stage); // CIVP est considéré comme Stage
+    } else if (typeDocument.NomType.toLowerCase().includes('cdd')) {
+      this.employes = this.employes.filter(e => e.TypeContrat === TypeContrat.CDD);
+    } else if (typeDocument.NomType.toLowerCase().includes('cdi')) {
+      this.employes = this.employes.filter(e => e.TypeContrat === TypeContrat.CDI);
+    } else {
+      // Si aucun type connu ne correspond, recharger tous les employés
+      this.loadEmployes();
+    }
+  }
+
+
+
 }
 

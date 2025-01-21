@@ -33,4 +33,7 @@ export class LigneFactureService {
       ligne
     );
   }
+  getTopServices(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.urlHote}LigneFacture/top-services`);
+  }
 }

@@ -111,7 +111,7 @@ export class EmployeComponent implements OnInit {
 
     const dialogRef = this.dialog.open(AddEmployeComponent, {
         panelClass: 'custom-dialog',
-        width: '80%',
+        width: '90%',
       });
 
 

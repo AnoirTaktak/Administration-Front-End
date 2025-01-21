@@ -36,4 +36,8 @@ export class FactureVenteService {
   createFacture(facture: FactureVente): Observable<FactureVente> {
     return this.http.post<FactureVente>(`${this.urlHote}FactureVente`, facture);
   }
+
+  getFactureVenteSeries() {
+    return this.http.get<number[]>('https://localhost:7155/api/FactureVente/total-ventes-last-five-months');
+  }
 }
